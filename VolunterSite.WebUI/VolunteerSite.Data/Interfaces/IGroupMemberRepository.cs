@@ -9,7 +9,7 @@ namespace VolunteerSite.Data.Interfaces
     {
         //read
         GroupMember GetById(int groupMemberId);
-        ICollection<GroupMember> GetByGroupId(int groupId);
+        ICollection<GroupMember> GetByGroupId(string volunteerGroupId);
 
         //create
         GroupMember Create(GroupMember newGroupMember);
