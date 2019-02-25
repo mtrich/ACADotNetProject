@@ -26,11 +26,6 @@ namespace VolunteerSite.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // bad way of adding connection string
-            //TODO: fix later
-            var connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=volunteersite;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            services.AddDbContext<VolunteerSiteDbContext>(options => options.UseSqlServer(connectionString));
-
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
