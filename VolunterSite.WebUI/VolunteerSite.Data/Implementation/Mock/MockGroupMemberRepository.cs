@@ -7,7 +7,7 @@ using VolunteerSite.Domain.Models;
 
 namespace VolunteerSite.Data.Implementation.Mock
 {
-    class MockGroupMemberRepository : IGroupMemberRepository
+    public class MockGroupMemberRepository : IGroupMemberRepository
     {
         private List<GroupMember> GroupMembers = new List<GroupMember>()
         {
@@ -42,9 +42,9 @@ namespace VolunteerSite.Data.Implementation.Mock
             return true;
         }
 
-        public ICollection<GroupMember> GetByGroupId(int groupId)
+        public ICollection<GroupMember> GetByGroupId(string volunteerGroupId)
         {
-            throw new NotImplementedException();
+            return GroupMembers.FindAll(m => m.VolunteerGroupId == volunteerGroupId);
         }
     }
 }
