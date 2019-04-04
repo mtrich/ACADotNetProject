@@ -8,7 +8,7 @@ using VolunteerSite.Domain.Models;
 
 namespace VolunteerSite.Data.Implementation.EFCore
 {
-    class EFCoreVolunteer : IVolunteerRepository
+    public class EFCoreVolunteerRepository : IVolunteerRepository
     {
         public Volunteer Create(Volunteer newVolunteer)
         {

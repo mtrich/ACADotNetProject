@@ -8,7 +8,7 @@ using VolunteerSite.Domain.Models;
 
 namespace VolunteerSite.Data.Implementation.EFCore
 {
-    class EFCoreJobListingRepository : IJobListingRepository
+    public class EFCoreJobListingRepository : IJobListingRepository
     {
         public JobListing Create(JobListing newJobListing)
         {

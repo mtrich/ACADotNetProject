@@ -8,7 +8,7 @@ using VolunteerSite.Domain.Models;
 
 namespace VolunteerSite.Data.Implementation.EFCore
 {
-    class EFCoreGroupMemberRepository : IGroupMemberRepository
+    public class EFCoreGroupMemberRepository : IGroupMemberRepository
     {
         public GroupMember Create(GroupMember newGroupMember)
         {

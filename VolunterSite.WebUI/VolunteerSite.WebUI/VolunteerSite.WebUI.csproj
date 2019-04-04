@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VolunteerSite.Data\VolunteerSite.Data.csproj" />
+    <ProjectReference Include="..\VolunteerSite.Service\VolunteerSite.Service.csproj" />
   </ItemGroup>
 
 </Project>

@@ -8,7 +8,7 @@ using VolunteerSite.Domain.Models;
 
 namespace VolunteerSite.Data.Implementation.EFCore
 {
-    class EFCoreOrganizationRepository : IOrganizationRepository
+    public class EFCoreOrganizationRepository : IOrganizationRepository
     {
         public Organization Create(Organization newOrganization)
         {

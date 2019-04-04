@@ -5,7 +5,7 @@ using VolunteerSite.Domain.Models;
 
 namespace VolunteerSite.Data.Interfaces
 {
-    interface IOrganizationRepository
+    public interface IOrganizationRepository
     {
         //Read
         Organization GetById(int organizationId);

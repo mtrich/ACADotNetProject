@@ -11,6 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VolunteerSite.Data.Context;
+using VolunteerSite.Data.Implementation.EFCore;
+using VolunteerSite.Data.Interfaces;
+using VolunteerSite.Service.Services;
 
 namespace VolunteerSite.WebUI
 {
@@ -32,6 +35,18 @@ namespace VolunteerSite.WebUI
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+
+            services.AddScoped<IGroupMemberRepository, EFCoreGroupMemberRepository>();
+            services.AddScoped<IJobListingRepository, EFCoreJobListingRepository>();
+            services.AddScoped<IOrganizationRepository, EFCoreOrganizationRepository>();
+            services.AddScoped<IVolunteerGroupRepository, EFCoreVolunteerGroupRepository>();
+            services.AddScoped<IVolunteerRepository, EFCoreVolunteerRepository>();
+
+            services.AddScoped<IGroupMemberService, GroupMemberService>();
+            services.AddScoped<IJobListingService, JobListingService>();
+            services.AddScoped<IOrganizationService, OrganizationService>();
+            services.AddScoped<IVolunteerGroupService, VolunteerGroupService>();
+            services.AddScoped<IVolunteerService, VolunteerService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
