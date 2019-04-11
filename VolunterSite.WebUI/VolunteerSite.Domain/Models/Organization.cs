@@ -15,6 +15,9 @@ namespace VolunteerSite.Domain.Models
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
 
-        public IEnumerable<JobListing> JobListings { get; set; }
+        public string OrganizationAdminId { get; set; }
+        public AppUser OrganizationAdmin { get; set; }
+
+        public ICollection<JobListing> JobListings { get; set; }
     }
 }

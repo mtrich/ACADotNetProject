@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VolunteerSite.Data.Context;
 
 namespace VolunteerSite.Data.Migrations
 {
     [DbContext(typeof(VolunteerSiteDbContext))]
-    partial class VolunteerSiteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190410044449_identity-provider")]
+    partial class identityprovider
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -252,13 +254,13 @@ namespace VolunteerSite.Data.Migrations
 
                     b.Property<string>("Address");
 
+                    b.Property<string>("AppUserId");
+
                     b.Property<string>("City");
 
                     b.Property<string>("CompanyName");
 
                     b.Property<string>("Email");
-
-                    b.Property<string>("OrganizationAdminId");
 
                     b.Property<string>("PhoneNumber");
 
@@ -266,9 +268,30 @@ namespace VolunteerSite.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrganizationAdminId");
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("Organizations");
+                });
+
+            modelBuilder.Entity("VolunteerSite.Domain.Models.Volunteer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("PhoneNumber");
+
+                    b.Property<string>("SkillsAndExperience");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Volunteer");
                 });
 
             modelBuilder.Entity("VolunteerSite.Domain.Models.VolunteerGroup", b =>
@@ -277,13 +300,19 @@ namespace VolunteerSite.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("GroupAdminId");
+                    b.Property<string>("AppUserId");
 
                     b.Property<string>("GroupName");
 
+                    b.Property<string>("GroupOwnerId");
+
+                    b.Property<int?>("GroupOwnerId1");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("GroupAdminId");
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("GroupOwnerId1");
 
                     b.ToTable("VolunteerGroups");
                 });
@@ -349,18 +378,20 @@ namespace VolunteerSite.Data.Migrations
 
             modelBuilder.Entity("VolunteerSite.Domain.Models.Organization", b =>
                 {
-                    b.HasOne("VolunteerSite.Domain.Models.AppUser", "OrganizationAdmin")
+                    b.HasOne("VolunteerSite.Domain.Models.AppUser")
                         .WithMany("Organizations")
-                        .HasForeignKey("OrganizationAdminId")
-                        .HasConstraintName("ForeignKey_Organization_AppUser");
+                        .HasForeignKey("AppUserId");
                 });
 
             modelBuilder.Entity("VolunteerSite.Domain.Models.VolunteerGroup", b =>
                 {
-                    b.HasOne("VolunteerSite.Domain.Models.AppUser", "GroupAdmin")
+                    b.HasOne("VolunteerSite.Domain.Models.AppUser")
                         .WithMany("VolunteerGroups")
-                        .HasForeignKey("GroupAdminId")
-                        .HasConstraintName("ForeignKey_VolunteerGroup_AppUser");
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("VolunteerSite.Domain.Models.Volunteer", "GroupOwner")
+                        .WithMany("VolunteerGroups")
+                        .HasForeignKey("GroupOwnerId1");
                 });
 #pragma warning restore 612, 618
         }

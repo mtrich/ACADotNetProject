@@ -9,8 +9,8 @@ namespace VolunteerSite.Domain.Models
         public int Id { get; set; }
         public string GroupName { get; set; }
 
-        public string GroupOwnerId { get; set; }
-        public Volunteer GroupOwner { get; set; }
+        public string GroupAdminId { get; set; }
+        public AppUser GroupAdmin { get; set; }
 
         public IEnumerable<GroupMember> GroupMembers { get; set; }
     }

@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using VolunteerSite.Data.Context;
 using VolunteerSite.Data.Implementation.EFCore;
 using VolunteerSite.Data.Interfaces;
+using VolunteerSite.Domain.Models;
 using VolunteerSite.Service.Services;
 
 namespace VolunteerSite.WebUI
@@ -36,17 +37,15 @@ namespace VolunteerSite.WebUI
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddScoped<IGroupMemberRepository, EFCoreGroupMemberRepository>();
-            services.AddScoped<IJobListingRepository, EFCoreJobListingRepository>();
-            services.AddScoped<IOrganizationRepository, EFCoreOrganizationRepository>();
-            services.AddScoped<IVolunteerGroupRepository, EFCoreVolunteerGroupRepository>();
-            services.AddScoped<IVolunteerRepository, EFCoreVolunteerRepository>();
+            GetDependencyResolvedForEFCoreLayer(services);
 
-            services.AddScoped<IGroupMemberService, GroupMemberService>();
-            services.AddScoped<IJobListingService, JobListingService>();
-            services.AddScoped<IOrganizationService, OrganizationService>();
-            services.AddScoped<IVolunteerGroupService, VolunteerGroupService>();
-            services.AddScoped<IVolunteerService, VolunteerService>();
+            //GetDependencyResolvedForMockRepositoryLayer(services);
+
+            GetDependencyResolvedForServiceLayer(services);
+
+            services.AddDbContext<VolunteerSiteDbContext>();
+            services.AddDefaultIdentity<AppUser>()
+                .AddEntityFrameworkStores<VolunteerSiteDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -66,6 +65,7 @@ namespace VolunteerSite.WebUI
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseCookiePolicy();
 
             app.UseMvc(routes =>
@@ -74,6 +74,29 @@ namespace VolunteerSite.WebUI
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private void GetDependencyResolvedForMockRepositoryLayer(IServiceCollection services)
+        {
+            services.AddScoped<IGroupMemberRepository, EFCoreGroupMemberRepository>();
+            services.AddScoped<IJobListingRepository, EFCoreJobListingRepository>();
+            services.AddScoped<IOrganizationRepository, EFCoreOrganizationRepository>();
+            services.AddScoped<IVolunteerGroupRepository, EFCoreVolunteerGroupRepository>();
+        }
+        private void GetDependencyResolvedForEFCoreLayer(IServiceCollection services)
+        {
+            services.AddScoped<IGroupMemberRepository, EFCoreGroupMemberRepository>();
+            services.AddScoped<IJobListingRepository, EFCoreJobListingRepository>();
+            services.AddScoped<IOrganizationRepository, EFCoreOrganizationRepository>();
+            services.AddScoped<IVolunteerGroupRepository, EFCoreVolunteerGroupRepository>();
+        }
+
+        private void GetDependencyResolvedForServiceLayer(IServiceCollection services)
+        {
+            services.AddScoped<IGroupMemberService, GroupMemberService>();
+            services.AddScoped<IJobListingService, JobListingService>();
+            services.AddScoped<IOrganizationService, OrganizationService>();
+            services.AddScoped<IVolunteerService, VolunteerService>();
         }
     }
 }
