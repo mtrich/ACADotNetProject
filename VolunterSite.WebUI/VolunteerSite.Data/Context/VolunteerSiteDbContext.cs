@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace VolunteerSite.Data.Context
 {
@@ -15,7 +16,8 @@ namespace VolunteerSite.Data.Context
         public DbSet<VolunteerGroup> VolunteerGroups { get; set; }
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<JobListing> JobListings { get; set; }
-        public DbSet<GroupMember> GroupMembers  { get; set; }
+        public DbSet<GroupMember> GroupMembers { get; set; }
+        public DbSet<Volunteer> Volunteers  { get; set; }
 
         // Setting up the provider (SQL Server) and location of the Database
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
@@ -39,6 +41,12 @@ namespace VolunteerSite.Data.Context
                 .WithMany(u => u.Organizations)
                 .HasForeignKey(o => o.OrganizationAdminId)
                 .HasConstraintName("ForeignKey_Organization_AppUser");
+
+            modelBuilder.Entity<IdentityRole>().HasData(
+                new IdentityRole { Name = "Volunteer", NormalizedName = "VOLUNTEER" },
+                new IdentityRole { Name = "OrganizationAdmin", NormalizedName = "ORGANIZATIONADMIN" },
+                new IdentityRole { Name = "GroupAdmin", NormalizedName = "GROUPADMIN" }
+                );
         }   
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -37,15 +38,19 @@ namespace VolunteerSite.WebUI
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            GetDependencyResolvedForEFCoreLayer(services);
+            GetDependencyResolvedForEFCoreRepositoryLayer(services);
 
             //GetDependencyResolvedForMockRepositoryLayer(services);
 
             GetDependencyResolvedForServiceLayer(services);
 
             services.AddDbContext<VolunteerSiteDbContext>();
-            services.AddDefaultIdentity<AppUser>()
+            services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<VolunteerSiteDbContext>();
+
+            SetUpIdentityPassword(services);
+
+            SetUpUnAuthorizedPath(services);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -83,20 +88,37 @@ namespace VolunteerSite.WebUI
             services.AddScoped<IOrganizationRepository, EFCoreOrganizationRepository>();
             services.AddScoped<IVolunteerGroupRepository, EFCoreVolunteerGroupRepository>();
         }
-        private void GetDependencyResolvedForEFCoreLayer(IServiceCollection services)
+        private void GetDependencyResolvedForEFCoreRepositoryLayer(IServiceCollection services)
         {
             services.AddScoped<IGroupMemberRepository, EFCoreGroupMemberRepository>();
             services.AddScoped<IJobListingRepository, EFCoreJobListingRepository>();
             services.AddScoped<IOrganizationRepository, EFCoreOrganizationRepository>();
             services.AddScoped<IVolunteerGroupRepository, EFCoreVolunteerGroupRepository>();
+            services.AddScoped<IVolunteerRepository, EFCoreVolunteerRepository>();
         }
-
         private void GetDependencyResolvedForServiceLayer(IServiceCollection services)
         {
             services.AddScoped<IGroupMemberService, GroupMemberService>();
             services.AddScoped<IJobListingService, JobListingService>();
             services.AddScoped<IOrganizationService, OrganizationService>();
+            services.AddScoped<IVolunteerGroupService, VolunteerGroupService>();
             services.AddScoped<IVolunteerService, VolunteerService>();
+        }
+        private void SetUpIdentityPassword(IServiceCollection services)
+        {
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequiredLength = 7;
+                options.Password.RequireDigit = false;
+            });
+        }
+        private static void SetUpUnAuthorizedPath(IServiceCollection services)
+        {
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/SignIn"; // override the default for /account/login
+                options.AccessDeniedPath = "/Account/Unauthourized";
+            });
         }
     }
 }
