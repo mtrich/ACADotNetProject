@@ -9,7 +9,7 @@ namespace VolunteerSite.Data.Implementation.Mock
 {
     class MockJobListingRepository : IJobListingRepository
     {
-        private List<JobListing> JobListings = new List<JobListing>()
+        private readonly List<JobListing> JobListings = new List<JobListing>()
         {
 
         };

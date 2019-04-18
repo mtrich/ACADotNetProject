@@ -102,7 +102,11 @@ namespace VolunteerSite.WebUI.Controllers
         {
             JobListing newJobListing = vm.JobListing;
 
-            newJobListing.Id = 1;
+            var adminId = _userManager.GetUserId(User);
+
+            Organization organization = _organizationService.GetByAdminId(adminId);
+
+            newJobListing.OrganizationId = organization.Id;
 
             _jobListingService.Create(newJobListing);
             return RedirectToAction("List");
