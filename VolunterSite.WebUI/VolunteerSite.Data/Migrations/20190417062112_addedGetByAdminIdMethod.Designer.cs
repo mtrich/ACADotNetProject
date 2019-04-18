@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VolunteerSite.Data.Context;
 
 namespace VolunteerSite.Data.Migrations
 {
     [DbContext(typeof(VolunteerSiteDbContext))]
-    partial class VolunteerSiteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190417062112_addedGetByAdminIdMethod")]
+    partial class addedGetByAdminIdMethod
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,22 +47,22 @@ namespace VolunteerSite.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "049c2a8e-e3b0-44b0-a32a-2a92f0f68924",
-                            ConcurrencyStamp = "dbf906fa-79e6-43cf-8e66-29cf2bc8efd3",
+                            Id = "cb885a2d-59fd-4a6a-9435-2a75539ec533",
+                            ConcurrencyStamp = "01f9f7a3-e140-40aa-bbcd-ea4df7e6f57c",
                             Name = "Volunteer",
                             NormalizedName = "VOLUNTEER"
                         },
                         new
                         {
-                            Id = "e19da9b5-6b21-4ece-b3c6-a2ee4b722f0c",
-                            ConcurrencyStamp = "fe632dd9-7b3c-49de-967f-e99c4faaf567",
+                            Id = "cff343ad-7571-4da8-95c5-5aede8569749",
+                            ConcurrencyStamp = "0c0f61e1-1e36-440e-bc27-7bee60fccf85",
                             Name = "OrganizationAdmin",
                             NormalizedName = "ORGANIZATIONADMIN"
                         },
                         new
                         {
-                            Id = "62c6ebb7-3b3c-4b5e-8ba9-8879dc9784e9",
-                            ConcurrencyStamp = "cd3e4f11-7cc3-48ea-ad99-78144642a352",
+                            Id = "ff811587-1f9d-4b29-9b5f-d5b1c69cdbdd",
+                            ConcurrencyStamp = "b431710a-b73a-4129-b9c8-6723d4fad582",
                             Name = "GroupAdmin",
                             NormalizedName = "GROUPADMIN"
                         });
@@ -278,8 +280,6 @@ namespace VolunteerSite.Data.Migrations
                     b.Property<string>("CompanyName");
 
                     b.Property<string>("Email");
-
-                    b.Property<string>("LogoImageURL");
 
                     b.Property<string>("OrganizationAdminId");
 

@@ -9,6 +9,7 @@ namespace VolunteerSite.Service.Services
     public interface IOrganizationService
     {
         Organization GetById(int organizationId);
+        Organization GetByAdminId(string adminId);
         Organization Create(Organization newOrganization);
         Organization Update(Organization updatedOrganization);
         bool DeleteById(int organizationId);
@@ -36,6 +37,11 @@ namespace VolunteerSite.Service.Services
         public Organization GetById(int organizationId)
         {
             return _organizationRepository.GetById(organizationId);
+        }
+
+        public Organization GetByAdminId(string adminId)
+        {
+            return _organizationRepository.GetByAdminId(adminId);
         }
 
         public Organization Update(Organization updatedOrganization)

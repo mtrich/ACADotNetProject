@@ -34,6 +34,11 @@ namespace VolunteerSite.Data.Implementation.Mock
             return Organizations.Single(h => h.Id == organizationId);
         }
 
+        public Organization GetByAdminId(string adminId)
+        {
+            return Organizations.Single(o => o.OrganizationAdminId == adminId);
+        }
+
         public Organization Update(Organization updatedOrganization)
         {
             DeleteById(updatedOrganization.Id);

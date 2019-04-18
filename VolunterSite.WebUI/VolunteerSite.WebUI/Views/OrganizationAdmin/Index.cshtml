@@ -1,4 +1,4 @@
-﻿
+﻿@model Organization
 @{
     ViewData["Title"] = "Index";
 }
@@ -6,3 +6,27 @@
 <h1>Index</h1>
 <p>THis page is only visible to Organization Admins</p>
 
+<table class="table table-dark">
+        <tr>
+            <th>Company Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Email</th>
+            <th>PhoneNumber</th>
+            <th>Image</th>
+        </tr>
+
+        <tr>
+            <td>@Model.CompanyName</td>
+            <td>@Model.Address</td>
+            <td>@Model.City</td>
+            <td>@Model.State</td>
+            <td>@Model.Email</td>
+            <td>@Model.PhoneNumber</td>
+            <td>
+                <img src="@Model.LogoImageURL" alt="company Logo" />
+            </td>
+        </tr>
+    </table>
+<a class="btn btn-primary" asp-action="List" role="button">JobListings</a>

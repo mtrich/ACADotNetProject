@@ -10,7 +10,7 @@ namespace VolunteerSite.Service.Services
     public interface IJobListingService
     {
         JobListing GetById(int jobListingId);
-        ICollection<JobListing> GetByOrganizationId(string organizationId);
+        ICollection<JobListing> GetByOrganizationId(int organizationId);
         ICollection<JobListing> GetByTypeOfJob(string typeOfJob);
         JobListing Create(JobListing newJobListing);
         JobListing Update(JobListing updatedJobListing);
@@ -41,7 +41,7 @@ namespace VolunteerSite.Service.Services
             return _jobListingRepository.GetById(jobListingId);
         }
 
-        public ICollection<JobListing> GetByOrganizationId(string organizationId)
+        public ICollection<JobListing> GetByOrganizationId(int organizationId)
         {
             return _jobListingRepository.GetByOrganizationId(organizationId);
         }

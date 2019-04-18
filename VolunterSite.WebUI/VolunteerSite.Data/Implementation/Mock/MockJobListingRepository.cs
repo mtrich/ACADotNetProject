@@ -19,7 +19,7 @@ namespace VolunteerSite.Data.Implementation.Mock
             return JobListings.Single(j => j.Id == jobListingId);
         }
 
-        public ICollection<JobListing> GetByOrganizationId(string organizationId)
+        public ICollection<JobListing> GetByOrganizationId(int organizationId)
         {
             return JobListings.FindAll(j => j.OrganizationId == organizationId);
         }

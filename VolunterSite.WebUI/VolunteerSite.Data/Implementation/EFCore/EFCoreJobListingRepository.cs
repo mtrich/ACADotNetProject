@@ -46,7 +46,7 @@ namespace VolunteerSite.Data.Implementation.EFCore
             }
         }
 
-        public ICollection<JobListing> GetByOrganizationId(string organizationId)
+        public ICollection<JobListing> GetByOrganizationId(int organizationId)
         {
             using (var context = new VolunteerSiteDbContext())
             {

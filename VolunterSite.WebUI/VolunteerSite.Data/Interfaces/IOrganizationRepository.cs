@@ -10,6 +10,8 @@ namespace VolunteerSite.Data.Interfaces
         //Read
         Organization GetById(int organizationId);
 
+        Organization GetByAdminId(string adminId);
+
         // Create
         Organization Create(Organization newOrganization);
 

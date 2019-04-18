@@ -46,6 +46,14 @@ namespace VolunteerSite.Data.Implementation.EFCore
             }
         }
 
+        public Organization GetByAdminId(string adminId)
+        {
+            using (var context = new VolunteerSiteDbContext())
+            {
+                return context.Organizations.Single(o => o.OrganizationAdminId == adminId);
+            }
+        }
+
         public Organization Update(Organization updatedOrganization)
         {
             using (var context = new VolunteerSiteDbContext())

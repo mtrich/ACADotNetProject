@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VolunteerSite.Data.Context;
 
 namespace VolunteerSite.Data.Migrations
 {
     [DbContext(typeof(VolunteerSiteDbContext))]
-    partial class VolunteerSiteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190417052448_changedCollectionOfOrgsToOrg")]
+    partial class changedCollectionOfOrgsToOrg
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,22 +47,22 @@ namespace VolunteerSite.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "049c2a8e-e3b0-44b0-a32a-2a92f0f68924",
-                            ConcurrencyStamp = "dbf906fa-79e6-43cf-8e66-29cf2bc8efd3",
+                            Id = "7d800cb9-f6a0-4e10-8552-6cbe464f47c9",
+                            ConcurrencyStamp = "4641ba13-e79b-4d6d-8148-4354af6fe1b4",
                             Name = "Volunteer",
                             NormalizedName = "VOLUNTEER"
                         },
                         new
                         {
-                            Id = "e19da9b5-6b21-4ece-b3c6-a2ee4b722f0c",
-                            ConcurrencyStamp = "fe632dd9-7b3c-49de-967f-e99c4faaf567",
+                            Id = "f7c045d8-71d0-4d60-92c4-a62dfc9642a1",
+                            ConcurrencyStamp = "210faa9b-7197-40a0-9959-dc97769d3b67",
                             Name = "OrganizationAdmin",
                             NormalizedName = "ORGANIZATIONADMIN"
                         },
                         new
                         {
-                            Id = "62c6ebb7-3b3c-4b5e-8ba9-8879dc9784e9",
-                            ConcurrencyStamp = "cd3e4f11-7cc3-48ea-ad99-78144642a352",
+                            Id = "9f562495-2125-4a80-86eb-d022459e7ebe",
+                            ConcurrencyStamp = "6d348504-4a6e-418f-b4b7-6f23739118b6",
                             Name = "GroupAdmin",
                             NormalizedName = "GROUPADMIN"
                         });
@@ -250,7 +252,9 @@ namespace VolunteerSite.Data.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<int>("OrganizationId");
+                    b.Property<string>("OrganizationId");
+
+                    b.Property<int?>("OrganizationId1");
 
                     b.Property<int>("PositionsAvailable");
 
@@ -260,7 +264,7 @@ namespace VolunteerSite.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OrganizationId");
+                    b.HasIndex("OrganizationId1");
 
                     b.ToTable("JobListings");
                 });
@@ -278,8 +282,6 @@ namespace VolunteerSite.Data.Migrations
                     b.Property<string>("CompanyName");
 
                     b.Property<string>("Email");
-
-                    b.Property<string>("LogoImageURL");
 
                     b.Property<string>("OrganizationAdminId");
 
@@ -394,8 +396,7 @@ namespace VolunteerSite.Data.Migrations
                 {
                     b.HasOne("VolunteerSite.Domain.Models.Organization", "Organization")
                         .WithMany("JobListings")
-                        .HasForeignKey("OrganizationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("OrganizationId1");
                 });
 
             modelBuilder.Entity("VolunteerSite.Domain.Models.Organization", b =>

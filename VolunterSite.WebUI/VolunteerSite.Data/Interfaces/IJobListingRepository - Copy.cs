@@ -9,7 +9,7 @@ namespace VolunteerSite.Data.Interfaces
     {
         //Read
         JobListing GetById(int jobListingId);
-        ICollection<JobListing> GetByOrganizationId(string organizationId);
+        ICollection<JobListing> GetByOrganizationId(int organizationId);
         ICollection<JobListing> GetByTypeOfJob(string typeOfJob);
 
         // Create

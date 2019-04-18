@@ -36,10 +36,10 @@ namespace VolunteerSite.Data.Context
                 .HasForeignKey(g => g.GroupAdminId)
                 .HasConstraintName("ForeignKey_VolunteerGroup_AppUser");
 
-            modelBuilder.Entity<Organization>()
-                .HasOne(o => o.OrganizationAdmin)
-                .WithMany(u => u.Organizations)
-                .HasForeignKey(o => o.OrganizationAdminId)
+            modelBuilder.Entity<AppUser>()
+                .HasOne(u => u.Organizations)
+                .WithOne(o => o.OrganizationAdmin)
+                .HasForeignKey<Organization>(o => o.OrganizationAdminId)
                 .HasConstraintName("ForeignKey_Organization_AppUser");
 
             modelBuilder.Entity<IdentityRole>().HasData(

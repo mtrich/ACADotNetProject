@@ -16,7 +16,7 @@ namespace VolunteerSite.Domain.Models
         public string TypeOfJob { get; set; }
         public DateTime Date { get; set; }
 
-        public string OrganizationId { get; set; }
+        public int OrganizationId { get; set; }
         public Organization Organization { get; set; }
     }
 }

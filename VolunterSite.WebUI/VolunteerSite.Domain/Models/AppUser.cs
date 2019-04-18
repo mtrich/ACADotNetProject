@@ -14,8 +14,8 @@ namespace VolunteerSite.Domain.Models
         //Volunteers
         public string SkillsAndExperience { get; set; }
 
-        //Navigation Properties
-        public ICollection<Organization> Organizations { get; set; } //Organization Admin
+        //Navigation Properties 
+        public Organization Organizations { get; set; }
         public ICollection<VolunteerGroup> VolunteerGroups { get; set; } //Volunteer Group Admin
     }
 }
