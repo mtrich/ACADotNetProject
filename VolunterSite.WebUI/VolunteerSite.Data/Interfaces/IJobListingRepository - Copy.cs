@@ -12,6 +12,8 @@ namespace VolunteerSite.Data.Interfaces
         ICollection<JobListing> GetByOrganizationId(int organizationId);
         ICollection<JobListing> GetByTypeOfJob(string typeOfJob);
 
+        ICollection<JobListing> GetAll();
+
         // Create
         JobListing Create(JobListing newJobListing);
 

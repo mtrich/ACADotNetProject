@@ -47,6 +47,14 @@ namespace VolunteerSite.Data.Implementation.EFCore
             }
         }
 
+        public ICollection<JobListing> GetAll()
+        {
+            using (var context = new VolunteerSiteDbContext())
+            {
+                return context.JobListings.AsEnumerable().ToList();
+            }
+        }
+
         public ICollection<JobListing> GetByOrganizationId(int organizationId)
         {
             using (var context = new VolunteerSiteDbContext())

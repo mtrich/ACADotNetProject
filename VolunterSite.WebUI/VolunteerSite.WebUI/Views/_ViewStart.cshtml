@@ -1,3 +1,11 @@
 ﻿@{
-    Layout = "_Layout";
+    if (this.User.IsInRole("OrganizationAdmin"))
+    {
+        Layout = "~/Views/Shared/_LayoutOrganizationAdmin.cshtml";
+        
+    } else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
 }

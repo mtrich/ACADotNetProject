@@ -114,6 +114,7 @@ namespace VolunteerSite.WebUI.Controllers
             return View(vm);
         }
 
+        [HttpPost]
         public async Task<IActionResult> SignOut()
         {
             await _signInManager.SignOutAsync();

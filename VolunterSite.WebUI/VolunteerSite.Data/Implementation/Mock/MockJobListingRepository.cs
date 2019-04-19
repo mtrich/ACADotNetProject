@@ -51,5 +51,10 @@ namespace VolunteerSite.Data.Implementation.Mock
             JobListings.Remove(JobListing);
             return true;
         }
+
+        public ICollection<JobListing> GetAll()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

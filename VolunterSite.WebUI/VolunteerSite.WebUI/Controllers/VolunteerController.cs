@@ -14,14 +14,22 @@ namespace VolunteerSite.WebUI.Controllers
     public class VolunteerController : Controller
     {
         private readonly IVolunteerService _volunteerService;
+        private readonly IJobListingService _jobListingService;
 
-        public VolunteerController(IVolunteerService volunteerService)
+        public VolunteerController(IVolunteerService volunteerService,
+            IJobListingService jobListingService)
         {
             _volunteerService = volunteerService;
+            _jobListingService = jobListingService;
         }
         public IActionResult Index()
         {
             return View();
+        }
+        public IActionResult JobList()
+        {
+            var jobListings = _jobListingService.GetAll();
+            return View(jobListings);
         }
     }
 }

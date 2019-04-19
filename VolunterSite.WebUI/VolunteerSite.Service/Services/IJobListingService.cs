@@ -12,6 +12,7 @@ namespace VolunteerSite.Service.Services
         JobListing GetById(int jobListingId);
         ICollection<JobListing> GetByOrganizationId(int organizationId);
         ICollection<JobListing> GetByTypeOfJob(string typeOfJob);
+        ICollection<JobListing> GetAll();
         JobListing Create(JobListing newJobListing);
         JobListing Update(JobListing updatedJobListing);
         bool DeleteById(int jobListingId);
@@ -39,6 +40,11 @@ namespace VolunteerSite.Service.Services
         public JobListing GetById(int jobListingId)
         {
             return _jobListingRepository.GetById(jobListingId);
+        }
+
+        public ICollection<JobListing> GetAll()
+        {
+            return _jobListingRepository.GetAll();
         }
 
         public ICollection<JobListing> GetByOrganizationId(int organizationId)
