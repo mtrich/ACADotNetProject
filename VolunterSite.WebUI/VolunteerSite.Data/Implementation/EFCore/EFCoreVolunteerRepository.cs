@@ -45,6 +45,14 @@ namespace VolunteerSite.Data.Implementation.EFCore
             }
         }
 
+        public Volunteer GetByUserId(string UserId)
+        {
+            using (var context = new VolunteerSiteDbContext())
+            {
+                return context.Volunteers.Single(v => v.UserId == UserId);
+            }
+        }
+
         public Volunteer Update(Volunteer updatedVolunteer)
         {
             using (var context = new VolunteerSiteDbContext())

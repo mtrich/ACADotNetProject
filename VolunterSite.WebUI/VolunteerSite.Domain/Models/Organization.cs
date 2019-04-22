@@ -20,6 +20,7 @@ namespace VolunteerSite.Domain.Models
         public string OrganizationAdminId { get; set; }
         public AppUser OrganizationAdmin { get; set; }
 
+        // Navigation Collection
         public ICollection<JobListing> JobListings { get; set; }
     }
 }

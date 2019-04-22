@@ -10,6 +10,7 @@ namespace VolunteerSite.Data.Interfaces
         //Read
         Volunteer GetById(int volunteerId);
 
+        Volunteer GetByUserId(string UserId);
         // Create
         Volunteer Create(Volunteer newVolunteer);
 

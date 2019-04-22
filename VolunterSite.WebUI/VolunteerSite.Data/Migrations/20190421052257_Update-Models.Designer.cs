@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VolunteerSite.Data.Context;
 
 namespace VolunteerSite.Data.Migrations
 {
     [DbContext(typeof(VolunteerSiteDbContext))]
-    partial class VolunteerSiteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190421052257_Update-Models")]
+    partial class UpdateModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,22 +47,22 @@ namespace VolunteerSite.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "cdee0be3-d94e-4f1f-b7c0-c7866f9d1fbc",
-                            ConcurrencyStamp = "1bd74c5d-84a7-48c7-b09d-d985f5eabb9e",
+                            Id = "3aaf6b1b-3a67-416a-8e61-e81b395efa56",
+                            ConcurrencyStamp = "4354f366-a309-4f4f-9202-d78741affdd6",
                             Name = "Volunteer",
                             NormalizedName = "VOLUNTEER"
                         },
                         new
                         {
-                            Id = "0503221f-436c-4241-9c0a-6455dc321a12",
-                            ConcurrencyStamp = "51da9c45-d36b-4a47-b9c7-4163b840d171",
+                            Id = "2a942a42-bed9-42d9-8758-f8d44b1af8a6",
+                            ConcurrencyStamp = "d100600c-19b0-461f-aa98-81289dca66e2",
                             Name = "OrganizationAdmin",
                             NormalizedName = "ORGANIZATIONADMIN"
                         },
                         new
                         {
-                            Id = "775f4eba-d746-4f97-8643-75b115a182bf",
-                            ConcurrencyStamp = "b7b3c54b-8318-4152-aa10-28fc716b9978",
+                            Id = "17176041-9512-4bb4-b156-a74a2cac219d",
+                            ConcurrencyStamp = "a4d4513c-a9d3-401b-ba6b-badb865723d6",
                             Name = "GroupAdmin",
                             NormalizedName = "GROUPADMIN"
                         });
@@ -333,15 +335,9 @@ namespace VolunteerSite.Data.Migrations
 
                     b.Property<string>("SkillsAndExperience");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("JobListingId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Volunteers");
                 });
@@ -453,10 +449,6 @@ namespace VolunteerSite.Data.Migrations
                     b.HasOne("VolunteerSite.Domain.Models.JobListing")
                         .WithMany("Volunteers")
                         .HasForeignKey("JobListingId");
-
-                    b.HasOne("VolunteerSite.Domain.Models.AppUser", "User")
-                        .WithOne("Volunteer")
-                        .HasForeignKey("VolunteerSite.Domain.Models.Volunteer", "UserId");
                 });
 
             modelBuilder.Entity("VolunteerSite.Domain.Models.VolunteerGroup", b =>

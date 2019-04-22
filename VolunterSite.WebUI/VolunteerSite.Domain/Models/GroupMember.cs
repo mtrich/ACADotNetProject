@@ -13,6 +13,7 @@ namespace VolunteerSite.Domain.Models
         public string PhoneNumber { get; set; }
         public int TotalHours { get; set; }
 
+        //foreign Key
         public string VolunteerGroupId { get; set; }
         public VolunteerGroup VolunteerGroup { get; set; }
     }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using VolunteerSite.Domain.Models;
+using VolunteerSite.Service.Services;
 using VolunteerSite.WebUI.ViewModels;
 
 namespace VolunteerSite.WebUI.Controllers
@@ -15,15 +16,18 @@ namespace VolunteerSite.WebUI.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly IVolunteerService _volunteerService;
         private readonly List<IdentityRole> _roles;
 
         public AccountController(UserManager<AppUser> userManager,
             RoleManager<IdentityRole> roleManager,
-            SignInManager<AppUser> signInManager)
+            SignInManager<AppUser> signInManager,
+            IVolunteerService volunteerService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            _volunteerService = volunteerService;
 
             //here we call this roll table once
             _roles = _roleManager.Roles.ToList();
@@ -58,10 +62,25 @@ namespace VolunteerSite.WebUI.Controllers
                 if (result.Succeeded)
                 {
                     // apply roles to user
-                   await  _userManager.AddToRoleAsync(user, vm.Role);
+                    await  _userManager.AddToRoleAsync(user, vm.Role);
 
                     await _signInManager.SignInAsync(user, true);
-                    return RedirectToAction("Index", "Home");
+                    var isVolunteer = await _userManager.IsInRoleAsync(user , "Volunteer");
+                    var isOrganizationAdmin = await _userManager.IsInRoleAsync(user , "OrganizationAdmin");
+                    if (isVolunteer)
+                    {
+                        
+                        return RedirectToAction("Profile", "Volunteer");
+                    }
+                    else if (isOrganizationAdmin)
+                    {
+                        return RedirectToAction("CreateOrg", "OrganizationAdmin");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    
                 }
                 else
                 {
@@ -70,6 +89,7 @@ namespace VolunteerSite.WebUI.Controllers
                         ModelState.AddModelError(error.Code, error.Description);
                     }
                 }
+                vm.Roles = new SelectList(_roles);
             }
 
             vm.Roles = new SelectList(_roles);

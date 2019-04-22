@@ -11,9 +11,16 @@ namespace VolunteerSite.Domain.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public string SkillsAndExperience { get; set; } 
+        public string SkillsAndExperience { get; set; }
+
+        //fk
+        public string UserId { get; set; }
+        public AppUser User { get; set; }
 
         // Navigation Collection
-        public IEnumerable<VolunteerGroup> VolunteerGroups { get; set; }
+
+        public ICollection<SavedJobListing> SavedJobListings { get; set; }
+
+        public ICollection<VolunteerGroup> VolunteerGroups { get; set; }
     }
 }

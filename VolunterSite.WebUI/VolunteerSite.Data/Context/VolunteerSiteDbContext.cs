@@ -17,7 +17,7 @@ namespace VolunteerSite.Data.Context
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<JobListing> JobListings { get; set; }
         public DbSet<GroupMember> GroupMembers { get; set; }
-        public DbSet<Volunteer> Volunteers  { get; set; }
+        public DbSet<Volunteer> Volunteers { get; set; }
 
         // Setting up the provider (SQL Server) and location of the Database
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
@@ -30,6 +30,11 @@ namespace VolunteerSite.Data.Context
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<AppUser>()
+                .HasOne(u => u.Volunteer)
+                .WithOne(v => v.User)
+                .HasForeignKey<Volunteer>(v => v.UserId);
+
             modelBuilder.Entity<VolunteerGroup>()
                 .HasOne(g => g.GroupAdmin)
                 .WithMany(u => u.VolunteerGroups)
@@ -37,10 +42,17 @@ namespace VolunteerSite.Data.Context
                 .HasConstraintName("ForeignKey_VolunteerGroup_AppUser");
 
             modelBuilder.Entity<AppUser>()
-                .HasOne(u => u.Organizations)
+                .HasOne(u => u.Organization)
                 .WithOne(o => o.OrganizationAdmin)
                 .HasForeignKey<Organization>(o => o.OrganizationAdminId)
                 .HasConstraintName("ForeignKey_Organization_AppUser");
+
+            modelBuilder.Entity<SavedJobListing>()
+                .HasOne(j => j.Volunteer)
+                .WithMany(u => u.SavedJobListings)
+                .HasForeignKey(j => j.VolunteerId)
+                .HasConstraintName("ForeignKey_SavedJobListing_Volunteer");
+
 
             modelBuilder.Entity<IdentityRole>().HasData(
                 new IdentityRole { Name = "Volunteer", NormalizedName = "VOLUNTEER" },

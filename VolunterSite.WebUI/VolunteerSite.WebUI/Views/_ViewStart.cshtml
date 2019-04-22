@@ -2,8 +2,12 @@
     if (this.User.IsInRole("OrganizationAdmin"))
     {
         Layout = "~/Views/Shared/_LayoutOrganizationAdmin.cshtml";
-        
-    } else
+
+    } else if(this.User.IsInRole("Volunteer"))
+    {
+        Layout = "~/Views/Shared/_LayoutVolunteer.cshtml";
+    }
+    else
     {
         Layout = "~/Views/Shared/_Layout.cshtml";
     }

@@ -34,6 +34,11 @@ namespace VolunteerSite.Data.Implementation.Mock
             return Volunteers.Single(h => h.Id == volunteerId);
         }
 
+        public Volunteer GetByUserId(string userId)
+        {
+            return Volunteers.Single(h => h.UserId == userId);
+        }
+
         public Volunteer Update(Volunteer updatedVolunteer)
         {
             DeleteById(updatedVolunteer.Id);
