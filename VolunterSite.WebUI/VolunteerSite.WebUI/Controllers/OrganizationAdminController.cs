@@ -100,15 +100,17 @@ namespace VolunteerSite.WebUI.Controllers
         [HttpPost]
         public IActionResult CreateJob(CreateJobViewModel vm)
         {
-            JobListing newJobListing = vm.JobListing;
-
             var adminId = _userManager.GetUserId(User);
-
+            JobListing newJobListing = vm.JobListing;
             Organization organization = _organizationService.GetByAdminId(adminId);
-
             newJobListing.OrganizationId = organization.Id;
 
+            
+            
+
             _jobListingService.Create(newJobListing);
+            
+
             return RedirectToAction("List");
         }
     }

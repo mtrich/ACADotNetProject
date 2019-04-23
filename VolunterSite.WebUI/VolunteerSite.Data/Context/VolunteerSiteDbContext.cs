@@ -47,6 +47,12 @@ namespace VolunteerSite.Data.Context
                 .HasForeignKey<Organization>(o => o.OrganizationAdminId)
                 .HasConstraintName("ForeignKey_Organization_AppUser");
 
+            modelBuilder.Entity<JobListing>()
+                .HasOne(j => j.Organization)
+                .WithMany(o => o.JobListings)
+                .HasForeignKey(j => j.OrganizationId)
+                .HasConstraintName("ForeignKey_JobListing_Organization");
+
             modelBuilder.Entity<SavedJobListing>()
                 .HasOne(j => j.Volunteer)
                 .WithMany(u => u.SavedJobListings)

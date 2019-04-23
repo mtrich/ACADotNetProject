@@ -1,2 +1,21 @@
-﻿body {
+﻿body
+{
+    margin: 0px;
+}
+.my-container 
+{
+    margin-top: 10px;
+    height: 350px;
+}
+.row 
+{
+    
+}
+.col-md-4
+{
+    border: 1px solid white;
+    border-top: none;
+    font-size: 12px;
+    margin: auto;
+    height: 300px;
 }

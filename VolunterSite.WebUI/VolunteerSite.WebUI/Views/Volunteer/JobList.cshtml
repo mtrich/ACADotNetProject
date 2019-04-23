@@ -3,7 +3,7 @@
 
 <h1>JobList</h1>
 <div>
-    <table class="table table-dark">
+    <table class="table table-bordered">
         <tr>
             <th>Type Of Job</th>
             <th>Date</th>
@@ -17,18 +17,19 @@
         @foreach (var j in Model)
         {
             <tr>
-                <td>@j.TypeOfJob</td>
+                <td></td>
+                <td>@j.Organization.</td>
                 <td>@j.Date</td>
-                <td>@j.Description</td>
                 <td>@j.Address</td>
                 <td>@j.City</td>
                 <td>@j.State</td>
                 <td>@j.PositionsAvailable</td>
-                @*<td>
-                        <form method="post" asp-controller="Volunteer" asp-action="JoinJob">
-                            <input type="submit" value="Volunteer" />
-                        </form>
-                    </td>*@
+                <td id="details">
+                    @Html.ActionLink("Details", "Details", new { id = j.Id })
+                    @*<form asp-controller="Volunteer" asp-action="JobDetails" >
+                        <input asp-for="j.Id"  type="submit" value="Details" />
+                    </form>*@
+                </td>
 
             </tr>
         }

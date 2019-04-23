@@ -1,12 +1,6 @@
 ﻿@model Volunteer
-@{
-    ViewData["Title"] = "Index";
-}
 
 <h1>Index</h1>
 <div>
-    @if (User.Identity.IsAuthenticated)
-    {
-    <p>Welcome to the site! - @User.Identity.Name</p>
-    }
+    <p>Welcome to the site! - @Model.FirstName</p>
 </div>

@@ -1,0 +1,27 @@
+﻿@model VolunteerEditViewModel
+
+<h1>Create Profile</h1>
+
+<form asp-action="CreateProfile" method="post">
+    <div class="form-group">
+        <label asp-for="Volunteer.FirstName"></label>
+        <input class="form-control" asp-for="Volunteer.FirstName" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Volunteer.LastName"></label>
+        <input class="form-control" asp-for="Volunteer.LastName" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Volunteer.Email"></label>
+        <input class="form-control" asp-for="Volunteer.Email" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Volunteer.PhoneNumber"></label>
+        <input class="form-control" asp-for="Volunteer.PhoneNumber" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Volunteer.SkillsAndExperience"></label>
+        <input class="form-control" asp-for="Volunteer.SkillsAndExperience" />
+    </div>
+    <button type="submit" class="btn btn-primary">submit</button>
+</form>

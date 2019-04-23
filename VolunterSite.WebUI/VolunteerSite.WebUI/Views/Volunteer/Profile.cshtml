@@ -1,23 +1,14 @@
-﻿@model VolunteerEditViewModel
+﻿@model Volunteer
 
-<h1>Edit Profile</h1>
+<h1>Profile</h1>
 
-<form asp-action="Profile" method="post">
-    <div class="form-group">
-        <label asp-for="Volunteer.FirstName"></label>
-        <input class="form-control" asp-for="Volunteer.FirstName" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Volunteer.LastName"></label>
-        <input class="form-control" asp-for="Volunteer.LastName" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Volunteer.Email"></label>
-        <input class="form-control" asp-for="Volunteer.Email" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Volunteer.SkillsAndExperience"></label>
-        <input class="form-control" asp-for="Volunteer.SkillsAndExperience" />
-    </div>
-    <button type="submit" class="btn btn-primary">submit</button>
-</form>
+<div class="profile-info">
+    <ul>
+        <li>First Name - @Model.FirstName</li>
+        <li>Last Name - @Model.LastName</li>
+        <li>Email - @Model.Email</li>
+        <li>PhoneNumber = @Model.PhoneNumber</li>
+        <li>SkillsAndExperience = @Model.SkillsAndExperience</li>
+        <li> @Html.ActionLink("Edit Profile", "EditProfile", new { id = Model.Id })</li>
+    </ul>
+</div>

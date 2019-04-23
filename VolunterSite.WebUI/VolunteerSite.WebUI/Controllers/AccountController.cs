@@ -70,7 +70,7 @@ namespace VolunteerSite.WebUI.Controllers
                     if (isVolunteer)
                     {
                         
-                        return RedirectToAction("Profile", "Volunteer");
+                        return RedirectToAction("CreateProfile", "Volunteer");
                     }
                     else if (isOrganizationAdmin)
                     {
@@ -111,16 +111,18 @@ namespace VolunteerSite.WebUI.Controllers
                 {
                     // get user
                     var user = await _userManager.FindByEmailAsync(vm.Email);
+                    await _signInManager.SignInAsync(user, true);
 
                     // identify what role has
                     var isVolunteer = await _userManager.IsInRoleAsync(user, "Volunteer");
+                    var isOrganizationAdmin = await _userManager.IsInRoleAsync(user, "OrganizationAdmin");
 
                     // redirect to the right controller (based on role)
                     if (isVolunteer)
                     {
                         return RedirectToAction("Index", "Volunteer");
                     }
-                    else
+                    else if(isOrganizationAdmin)
                     {
                         return RedirectToAction("Index", "OrganizationAdmin");
                     }

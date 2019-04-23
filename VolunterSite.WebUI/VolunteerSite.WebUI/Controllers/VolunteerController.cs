@@ -27,19 +27,59 @@ namespace VolunteerSite.WebUI.Controllers
             _jobListingService = jobListingService;
             _userManager = userManager;
         }
+
+        public IActionResult Index()
+        {
+            var volunteerId = _userManager.GetUserId(User);
+
+            Volunteer volunteer = _volunteerService.GetByUserId(volunteerId);
+            return View(volunteer);
+        }
+
         [HttpGet]
-        public IActionResult Profile() => View();
+        public IActionResult CreateProfile() => View();
         [HttpPost]
-        public IActionResult Profile(VolunteerEditViewModel vm)
+        public IActionResult CreateProfile(VolunteerEditViewModel vm)
         {
             Volunteer newVolunteer = vm.Volunteer;
-            newVolunteer = new Volunteer
-            {
-                UserId = _userManager.GetUserId(User)
-            };
+
+            newVolunteer.UserId = _userManager.GetUserId(User);
+            
             _volunteerService.Create(newVolunteer);
 
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index","Volunteer");
+        }
+
+        public IActionResult Profile()
+        {
+            var userId = _userManager.GetUserId(User);
+            Volunteer currentVolunteer = _volunteerService.GetByUserId(userId);
+            return View(currentVolunteer);
+        }
+
+        [HttpGet]
+        public IActionResult EditProfile(int Id) {
+            VolunteerEditViewModel vm = new VolunteerEditViewModel();
+            var model = _volunteerService.GetById(Id);
+            return View(vm);
+        }
+
+        [HttpPost]
+        public IActionResult EditProfile(int Id, VolunteerEditViewModel input)
+        {
+            Volunteer newVolunteer = input.Volunteer;
+            var volunteer = _volunteerService.GetById(Id);
+            volunteer.FirstName = newVolunteer.FirstName;
+            volunteer.LastName = newVolunteer.LastName;
+            volunteer.Email = newVolunteer.Email;
+            volunteer.PhoneNumber = newVolunteer.PhoneNumber;
+            volunteer.SkillsAndExperience = newVolunteer.SkillsAndExperience;
+            if (volunteer != null && ModelState.IsValid)
+            {
+                _volunteerService.Update(volunteer);
+               return RedirectToAction("Volunteer", "Profile");
+            }
+            return View(volunteer);
         }
    
         public IActionResult JobList()
@@ -48,14 +88,29 @@ namespace VolunteerSite.WebUI.Controllers
             jobListings = _jobListingService.GetAll();
             return View(jobListings);
         }
-        [HttpPost]
-        public IActionResult JoinJob(JoinJobViewModel vm)
-        {
-            JobListing selectedjobListing = vm.JobListing;
-            Volunteer currentUser = _volunteerService.GetByUserId(_userManager.GetUserId(User));
-            selectedjobListing.Volunteers.Add(currentUser);
 
-            return View();
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            JobListing detailedJobListing = _jobListingService.GetById(id);
+            return View(detailedJobListing);
         }
+
+        [HttpPost]
+        public IActionResult Details(JobListing detailedJobListing)
+        {
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        //[HttpPost]
+        //public IActionResult JoinJob(JoinJobViewModel vm)
+        //{
+        //    JobListing selectedjobListing = vm.JobListing;
+        //    Volunteer currentUser = _volunteerService.GetByUserId(_userManager.GetUserId(User));
+        //    selectedjobListing.Volunteers.Add(currentUser);
+
+        //    return View();
+        //}
     }
 }

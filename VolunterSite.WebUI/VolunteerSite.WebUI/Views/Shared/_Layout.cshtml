@@ -22,7 +22,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">OurVolunteerNetwork.mpeg</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">OurVolunteerNetwork.Net</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -42,16 +42,16 @@
                        
                     </ul>
                 </div>
-                <div>
+                <div id="sign-in-out">
                     @if (this.User.Identity.IsAuthenticated)
                     {
-                        <form method="post" asp-controller="Account" asp-action="SignOut">
+                        <form class="signout" method="post" asp-controller="Account" asp-action="SignOut">
                             <input type="submit" value="Sign Out" />
                         </form>
                     }
                     else
                     {
-                        <form method="get" asp-controller="Account" asp-action="SignIn">
+                        <form class="signout" method="get" asp-controller="Account" asp-action="SignIn">
                             <input type="submit" value="Sign In" />
                         </form>
                     }
@@ -62,8 +62,7 @@
         </nav>
     </header>
     <div class="container-fluid">
-        <partial name="_CookieConsentPartial" />
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3 col-lg-offset-4">
             <div class="container">
                 @RenderBody()
             </div>
