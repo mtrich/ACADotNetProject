@@ -42,11 +42,6 @@ namespace VolunteerSite.WebUI.Controllers
             return View(organization);
         }
 
-        public IActionResult CreateOrganization()
-        {
-            return View();
-        }
-
         public IActionResult List()
         {
             var adminId = _userManager.GetUserId(User);
@@ -112,6 +107,52 @@ namespace VolunteerSite.WebUI.Controllers
             
 
             return RedirectToAction("List");
+        }
+
+        [HttpGet]
+        public IActionResult EditJob(int Id)
+        {
+            var model = _jobListingService.GetById(Id);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult EditJob(int Id, JobEditViewModel input)
+        {
+            var jobListing = _jobListingService.GetById(Id);
+            jobListing.Address = input.Address;
+            jobListing.City = input.City;
+            jobListing.State = input.State;
+            jobListing.PositionsAvailable = input.PositionsAvailable;
+            jobListing.Description = input.Description;
+            jobListing.TypeOfJob = input.TypeOfJob;
+            jobListing.Date = input.Date;
+            if (jobListing != null && ModelState.IsValid)
+            {
+                _jobListingService.Update(jobListing);
+                return RedirectToAction("List", "OrganizationAdmin");
+            }
+            return View(jobListing);
+        }
+
+        [HttpGet]
+        public IActionResult DeleteJob(int Id)
+        {
+            var model = _jobListingService.GetById(Id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteJob(int Id, JobEditViewModel input)
+        {
+            var jobListing = _jobListingService.GetById(Id);
+            if (jobListing != null && ModelState.IsValid)
+            {
+                _jobListingService.DeleteById(Id);
+                return RedirectToAction("List", "OrganizationAdmin");
+            }
+            return View();
         }
     }
 }

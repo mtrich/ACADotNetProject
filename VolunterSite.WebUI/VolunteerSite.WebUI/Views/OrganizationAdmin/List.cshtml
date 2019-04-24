@@ -25,6 +25,8 @@
             <td>@j.City</td>
             <td>@j.State</td>
             <td>@j.PositionsAvailable</td>
+            <td>@Html.ActionLink("Edit", "EditJob", new { id = j.Id }, new { @class = "btn btn-primary" }) @Html.ActionLink("Delete", "DeleteJob", new { id = j.Id }, new { @class = "btn btn-primary" })</td>
+      
         </tr>
         }
         

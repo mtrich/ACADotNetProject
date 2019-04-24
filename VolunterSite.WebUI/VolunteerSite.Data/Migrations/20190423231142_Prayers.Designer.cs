@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using VolunteerSite.Data.Context;
 
 namespace VolunteerSite.Data.Migrations
 {
     [DbContext(typeof(VolunteerSiteDbContext))]
-    partial class VolunteerSiteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190423231142_Prayers")]
+    partial class Prayers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

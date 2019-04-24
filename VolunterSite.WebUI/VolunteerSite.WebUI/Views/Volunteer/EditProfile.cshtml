@@ -1,4 +1,4 @@
-﻿@model VolunteerEditViewModel
+﻿@model Volunteer
 
 @{
     ViewData["Title"] = "EditProfile";
@@ -12,7 +12,7 @@
     <div class="col-md-4">
         <form asp-action="EditProfile">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Volunteer.Id" />
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control" />

@@ -28,13 +28,9 @@ namespace VolunteerSite.Data.Implementation.EFCore
                 var jobListingToBeDeleted = GetById(jobListingId);
                 context.Remove(jobListingToBeDeleted);
                 context.SaveChanges();
+                
 
-                if (GetById(jobListingId) == null)
-                {
-                    return true;
-                }
-
-                return false;
+                return true;
             }
         }
 
@@ -76,7 +72,14 @@ namespace VolunteerSite.Data.Implementation.EFCore
             using (var context = new VolunteerSiteDbContext())
             {
                 var existingJobListing = GetById(updatedJobListing.Id);
-                context.Entry(existingJobListing).CurrentValues.SetValues(updatedJobListing);
+                existingJobListing.Address = updatedJobListing.Address;
+                existingJobListing.City = updatedJobListing.City;
+                existingJobListing.Date = updatedJobListing.Date;
+                existingJobListing.Description = updatedJobListing.Description;
+                existingJobListing.State = updatedJobListing.State;
+                existingJobListing.TypeOfJob = updatedJobListing.TypeOfJob;
+                existingJobListing.PositionsAvailable = updatedJobListing.PositionsAvailable;
+                context.JobListings.Update(existingJobListing);
                 context.SaveChanges();
 
                 return existingJobListing;

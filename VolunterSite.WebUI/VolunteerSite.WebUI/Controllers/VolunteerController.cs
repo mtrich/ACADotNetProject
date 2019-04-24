@@ -59,33 +59,31 @@ namespace VolunteerSite.WebUI.Controllers
 
         [HttpGet]
         public IActionResult EditProfile(int Id) {
-            VolunteerEditViewModel vm = new VolunteerEditViewModel();
             var model = _volunteerService.GetById(Id);
-            return View(vm);
+
+            return View(model);
         }
 
         [HttpPost]
         public IActionResult EditProfile(int Id, VolunteerEditViewModel input)
         {
-            Volunteer newVolunteer = input.Volunteer;
             var volunteer = _volunteerService.GetById(Id);
-            volunteer.FirstName = newVolunteer.FirstName;
-            volunteer.LastName = newVolunteer.LastName;
-            volunteer.Email = newVolunteer.Email;
-            volunteer.PhoneNumber = newVolunteer.PhoneNumber;
-            volunteer.SkillsAndExperience = newVolunteer.SkillsAndExperience;
+            volunteer.FirstName = input.FirstName;
+            volunteer.LastName = input.LastName;
+            volunteer.Email = input.Email;
+            volunteer.PhoneNumber = input.PhoneNumber;
+            volunteer.SkillsAndExperience = input.SkillsAndExperience;
             if (volunteer != null && ModelState.IsValid)
             {
                 _volunteerService.Update(volunteer);
-               return RedirectToAction("Volunteer", "Profile");
+               return RedirectToAction("Profile", new { id = volunteer.Id });
             }
             return View(volunteer);
         }
    
         public IActionResult JobList()
         {
-            ICollection<JobListing> jobListings;
-            jobListings = _jobListingService.GetAll();
+            ICollection<JobListing> jobListings = _jobListingService.GetAll();
             return View(jobListings);
         }
 

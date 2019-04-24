@@ -10,6 +10,10 @@ namespace VolunteerSite.Data.Interfaces
         //Read
         VolunteerGroup GetById(int volunteerGroupId);
 
+        IEnumerable<VolunteerGroup> GetByAdminId(string adminId);
+
+        ICollection<VolunteerGroup> GetAll();
+
         // Create
         VolunteerGroup Create(VolunteerGroup newVolunteerGroup);
 

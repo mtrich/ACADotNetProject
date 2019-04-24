@@ -1,0 +1,26 @@
+﻿@model ICollection<VolunteerGroup>
+
+@{
+    ViewData["Title"] = "BrowseGroups";
+}
+
+<h1>BrowseGroups</h1>
+
+<div>
+    <h4>VolunteerGroups</h4>
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                VolunteerGroup
+            </th>
+        </tr>
+        @foreach (var g in Model)
+        {
+            <tr>
+                <td>@g.GroupName</td>
+                <td>@Html.ActionLink("Details", "Join Group", new { id = g.Id }, new { @class = "btn btn-primary" })</td>
+            </tr>
+        }
+    </table>
+    
+</div>

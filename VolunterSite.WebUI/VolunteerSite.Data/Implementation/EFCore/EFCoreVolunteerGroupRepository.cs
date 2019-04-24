@@ -42,7 +42,26 @@ namespace VolunteerSite.Data.Implementation.EFCore
         {
             using (var context = new VolunteerSiteDbContext())
             {
+                
                 return context.VolunteerGroups.Single(v => v.Id == volunteerGroupId);
+            }
+        }
+
+        public ICollection<VolunteerGroup> GetAll()
+        {
+            using (var context = new VolunteerSiteDbContext())
+            {
+
+                return context.VolunteerGroups.AsEnumerable().ToList();
+            }
+        }
+
+        public IEnumerable<VolunteerGroup> GetByAdminId(string adminId)
+        {
+            using (var context = new VolunteerSiteDbContext())
+            {
+                IEnumerable<VolunteerGroup> returnedGroups = context.VolunteerGroups.AsEnumerable().TakeWhile(g => g.GroupAdminId == adminId).ToList();
+                return returnedGroups;
             }
         }
 

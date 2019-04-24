@@ -12,6 +12,8 @@ namespace VolunteerSite.Service.Services
         VolunteerGroup Create(VolunteerGroup newVolunteerGroup);
         VolunteerGroup Update(VolunteerGroup updatedVolunteerGroup);
         bool DeleteById(int volunteerGroupId);
+        IEnumerable<VolunteerGroup> GetByAdminId(string adminId);
+        ICollection<VolunteerGroup> GetAll();
     }
     public class VolunteerGroupService : IVolunteerGroupService
     {
@@ -34,6 +36,16 @@ namespace VolunteerSite.Service.Services
         public VolunteerGroup GetById(int volunteerGroupId)
         {
             return _volunteerGroupRepository.GetById(volunteerGroupId);
+        }
+
+        public IEnumerable<VolunteerGroup> GetByAdminId(string adminId)
+        {
+            return _volunteerGroupRepository.GetByAdminId(adminId);
+        }
+
+        public ICollection<VolunteerGroup> GetAll()
+        {
+            return _volunteerGroupRepository.GetAll();
         }
 
         public VolunteerGroup Update(VolunteerGroup updatedVolunteerGroup)

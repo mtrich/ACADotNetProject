@@ -11,7 +11,9 @@ namespace VolunteerSite.WebUI.ViewModels
     {
         public Volunteer Volunteer { get; set; }
 
+        [DataType(DataType.Text)]
         public string FirstName { get; set; }
+        [DataType(DataType.Text)]
         public string LastName { get; set; }
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }

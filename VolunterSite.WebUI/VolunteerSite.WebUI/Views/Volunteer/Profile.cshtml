@@ -9,6 +9,7 @@
         <li>Email - @Model.Email</li>
         <li>PhoneNumber = @Model.PhoneNumber</li>
         <li>SkillsAndExperience = @Model.SkillsAndExperience</li>
-        <li> @Html.ActionLink("Edit Profile", "EditProfile", new { id = Model.Id })</li>
+
     </ul>
+    @Html.ActionLink("Edit Profile", "EditProfile", new { id = Model.Id }, new { @class="btn btn-primary" })
 </div>

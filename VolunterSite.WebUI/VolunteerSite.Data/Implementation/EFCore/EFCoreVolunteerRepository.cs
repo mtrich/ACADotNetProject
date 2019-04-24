@@ -58,7 +58,12 @@ namespace VolunteerSite.Data.Implementation.EFCore
             using (var context = new VolunteerSiteDbContext())
             {
                 var existingVolunteer = GetById(updatedVolunteer.Id);
-                context.Entry(existingVolunteer).CurrentValues.SetValues(updatedVolunteer);
+                existingVolunteer.FirstName = updatedVolunteer.FirstName;
+                existingVolunteer.LastName = updatedVolunteer.LastName;
+                existingVolunteer.PhoneNumber = updatedVolunteer.PhoneNumber;
+                existingVolunteer.Email = updatedVolunteer.Email;
+                existingVolunteer.SkillsAndExperience = updatedVolunteer.SkillsAndExperience;
+                context.Volunteers.Update(existingVolunteer);
                 context.SaveChanges();
 
                 return existingVolunteer;

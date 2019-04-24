@@ -5,9 +5,9 @@
 <div>
     <table class="table table-bordered">
         <tr>
-            <th>Type Of Job</th>
+            <th>Organization</th>
             <th>Date</th>
-            <th>Description</th>
+            <th>Type Of Job</th>
             <th>Address</th>
             <th>City</th>
             <th>State</th>
@@ -17,15 +17,15 @@
         @foreach (var j in Model)
         {
             <tr>
-                <td></td>
-                <td>@j.Organization.</td>
-                <td>@j.Date</td>
+                <td>@j.Organization</td>
+                <td>@j.TypeOfJob</td>
+                <td>@j.TypeOfJob</td>
                 <td>@j.Address</td>
                 <td>@j.City</td>
                 <td>@j.State</td>
                 <td>@j.PositionsAvailable</td>
                 <td id="details">
-                    @Html.ActionLink("Details", "Details", new { id = j.Id })
+                    @Html.ActionLink("Details", "Details", new { id = j.Id }, new { @class = "btn btn-primary" })
                     @*<form asp-controller="Volunteer" asp-action="JobDetails" >
                         <input asp-for="j.Id"  type="submit" value="Details" />
                     </form>*@

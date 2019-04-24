@@ -1,0 +1,13 @@
+﻿@model IEnumerable<VolunteerGroup>
+@{
+    ViewData["Title"] = "MyGroup";
+}
+
+<h1>Groups I Own</h1>
+
+@foreach(var g in Model)
+{
+    <tr>
+        <td>@g.GroupName</td>
+    </tr>
+}

@@ -29,6 +29,16 @@ namespace VolunteerSite.Data.Implementation.Mock
             return true;
         }
 
+        public ICollection<VolunteerGroup> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<VolunteerGroup> GetByAdminId(string adminId)
+        {
+            throw new NotImplementedException();
+        }
+
         public VolunteerGroup GetById(int volunteerGroupId)
         {
             return VolunteerGroups.Single(v => v.Id == volunteerGroupId);
