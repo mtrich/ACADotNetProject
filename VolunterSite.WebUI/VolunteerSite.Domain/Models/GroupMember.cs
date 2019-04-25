@@ -14,7 +14,10 @@ namespace VolunteerSite.Domain.Models
         public int TotalHours { get; set; }
 
         //foreign Key
-        public string VolunteerGroupId { get; set; }
+        public int VolunteerGroupId { get; set; }
         public VolunteerGroup VolunteerGroup { get; set; }
+
+        public int VolunteerId { get; set; }
+        public Volunteer Volunteer { get; set; }
     }
 }

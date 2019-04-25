@@ -38,7 +38,7 @@ namespace VolunteerSite.Data.Implementation.EFCore
             }
         }
 
-        public ICollection<GroupMember> GetByGroupId(string volunteerGroupId)
+        public ICollection<GroupMember> GetByGroupId(int volunteerGroupId)
         {
             using (var context = new VolunteerSiteDbContext())
             {
@@ -54,12 +54,30 @@ namespace VolunteerSite.Data.Implementation.EFCore
             }
         }
 
+        public GroupMember GetByVolunteerId(int volunteerId)
+        {
+            using (var context = new VolunteerSiteDbContext())
+            {
+                if(context.GroupMembers.Any(m => m.VolunteerId == volunteerId))
+                {
+                    var groupMember = context.GroupMembers.Single(m => m.VolunteerId == volunteerId);
+                    return groupMember;
+
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
         public GroupMember Update(GroupMember updatedGroupMember)
         {
             using (var context = new VolunteerSiteDbContext())
             {
                 var existingGroupMember = GetById(updatedGroupMember.Id);
-                context.Entry(existingGroupMember).CurrentValues.SetValues(updatedGroupMember);
+                existingGroupMember.VolunteerGroup = updatedGroupMember.VolunteerGroup;
+                context.Update(existingGroupMember);
                 context.SaveChanges();
 
                 return existingGroupMember;

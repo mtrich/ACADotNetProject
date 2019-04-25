@@ -59,7 +59,16 @@ namespace VolunteerSite.Data.Implementation.EFCore
             using (var context = new VolunteerSiteDbContext())
             {
                 var existingOrganization = GetById(updatedOrganization.Id);
-                context.Entry(existingOrganization).CurrentValues.SetValues(updatedOrganization);
+
+                existingOrganization.Address = updatedOrganization.Address;
+                existingOrganization.City = updatedOrganization.City;
+                existingOrganization.CompanyName = updatedOrganization.CompanyName;
+                existingOrganization.Email = updatedOrganization.Email;
+                existingOrganization.LogoImageURL = updatedOrganization.LogoImageURL;
+                existingOrganization.PhoneNumber = updatedOrganization.PhoneNumber;
+                existingOrganization.State = updatedOrganization.State;
+
+                context.Organizations.Update(existingOrganization);
                 context.SaveChanges();
 
                 return existingOrganization;

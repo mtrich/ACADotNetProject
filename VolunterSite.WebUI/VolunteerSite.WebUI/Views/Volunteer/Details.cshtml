@@ -1,14 +1,16 @@
-﻿@model JobListing
+﻿@model JobDetailsViewModel
 @{
     ViewData["Title"] = "JobDetails";
 }
 
-<h1>JobDetails</h1>
+<img src="@Model.Organization.LogoImageURL" alt="company Logo" class="logo">
 
-<ul>
-    <li>@Model.Description</li>
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
-</ul>
+<h2>@Model.JobListing.TypeOfJob</h2>
+<br />
+<p>@Model.Organization.CompanyName • @Model.JobListing.Address, @Model.JobListing.City, @Model.JobListing.State</p>
+<p>@Model.JobListing.Date</p>
+
+<h3>Job Description</h3>
+
+<p>@Model.JobListing.Description</p>
+

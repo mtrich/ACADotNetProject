@@ -6,9 +6,10 @@ using VolunteerSite.Domain.Models;
 
 namespace VolunteerSite.WebUI.ViewModels
 {
-    public class JobDetailsViewModel
+    public class JobListViewModel
     {
-        public JobListing JobListing { get; set; }
+        public ICollection<JobListing> JobListings { get; set; }
+
         public Organization Organization { get; set; }
     }
 }

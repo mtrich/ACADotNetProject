@@ -18,7 +18,10 @@
         {
             <tr>
                 <td>@g.GroupName</td>
-                <td>@Html.ActionLink("Details", "Join Group", new { id = g.Id }, new { @class = "btn btn-primary" })</td>
+                <td>
+                    <form method="post" asp-controller="Group" asp-action="JoinGroup" asp-route-Id="@g.Id">
+                        <input class="btn btn-primary" type="submit" value="Join Group" />
+                    </form>
             </tr>
         }
     </table>

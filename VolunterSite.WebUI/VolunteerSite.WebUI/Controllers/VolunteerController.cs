@@ -18,14 +18,17 @@ namespace VolunteerSite.WebUI.Controllers
         private readonly IVolunteerService _volunteerService;
         private readonly IJobListingService _jobListingService;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IOrganizationService _organizationService;
 
         public VolunteerController(IVolunteerService volunteerService,
             IJobListingService jobListingService,
-            UserManager<AppUser> userManager)
+            UserManager<AppUser> userManager,
+            IOrganizationService organizationService)
         {
             _volunteerService = volunteerService;
             _jobListingService = jobListingService;
             _userManager = userManager;
+            _organizationService = organizationService;
         }
 
         public IActionResult Index()
@@ -81,17 +84,25 @@ namespace VolunteerSite.WebUI.Controllers
             return View(volunteer);
         }
    
-        public IActionResult JobList()
+        public IActionResult JobList(JobListViewModel vm)
         {
-            ICollection<JobListing> jobListings = _jobListingService.GetAll();
-            return View(jobListings);
+            var Joblistings = _jobListingService.GetAll();
+            foreach(var j in Joblistings)
+            {
+                j.Organization = _organizationService.GetById(j.OrganizationId);
+            }
+            vm.JobListings = Joblistings;
+            return View(vm);
         }
 
         [HttpGet]
-        public IActionResult Details(int id)
+        public IActionResult Details(int id, JobDetailsViewModel vm)
         {
             JobListing detailedJobListing = _jobListingService.GetById(id);
-            return View(detailedJobListing);
+            Organization organization = _organizationService.GetById(detailedJobListing.OrganizationId);
+            vm.JobListing = detailedJobListing;
+            vm.Organization = organization;
+            return View(vm);
         }
 
         [HttpPost]

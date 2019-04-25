@@ -42,9 +42,14 @@ namespace VolunteerSite.Data.Implementation.Mock
             return true;
         }
 
-        public ICollection<GroupMember> GetByGroupId(string volunteerGroupId)
+        public ICollection<GroupMember> GetByGroupId(int volunteerGroupId)
         {
             return GroupMembers.FindAll(m => m.VolunteerGroupId == volunteerGroupId);
+        }
+
+        public GroupMember GetByVolunteerId(int volunteerId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

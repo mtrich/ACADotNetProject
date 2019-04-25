@@ -9,7 +9,8 @@ namespace VolunteerSite.Service.Services
     public interface IGroupMemberService
     {
         GroupMember GetById(int groupMemberId);
-        ICollection<GroupMember> GetByGroupId(string volunteerGroupId);
+        GroupMember GetByVolunteerId(int volunteerId);
+        ICollection<GroupMember> GetByGroupId(int volunteerGroupId);
         GroupMember Create(GroupMember newGroupMember);
         GroupMember Update(GroupMember UpdatedGroupMember);
         bool DeleteById(int groupMemberId);
@@ -33,7 +34,7 @@ namespace VolunteerSite.Service.Services
             return _groupMemberRepository.DeleteById(groupMemberId);
         }
 
-        public ICollection<GroupMember> GetByGroupId(string volunteerGroupId)
+        public ICollection<GroupMember> GetByGroupId(int volunteerGroupId)
         {
             return _groupMemberRepository.GetByGroupId(volunteerGroupId);
         }
@@ -41,6 +42,11 @@ namespace VolunteerSite.Service.Services
         public GroupMember GetById(int groupMemberId)
         {
             return _groupMemberRepository.GetById(groupMemberId);
+        }
+
+        public GroupMember GetByVolunteerId(int volunteerId)
+        {
+            return _groupMemberRepository.GetByVolunteerId(volunteerId);
         }
 
         public GroupMember Update(GroupMember UpdatedGroupMember)

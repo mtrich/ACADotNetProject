@@ -1,38 +1,23 @@
-﻿@model ICollection<JobListing>
+﻿@model JobListViewModel
 
 
 <h1>JobList</h1>
 <div>
-    <table class="table table-bordered">
-        <tr>
-            <th>Organization</th>
-            <th>Date</th>
-            <th>Type Of Job</th>
-            <th>Address</th>
-            <th>City</th>
-            <th>State</th>
-            <th>Positions Available</th>
-        </tr>
+    <div class="table-responsive">
+        <table class="table table-hover">
+            @foreach (var j in @Model.JobListings)
+            {
+                <tr>
+                    <td>@j.TypeOfJob</td>
+                    <td>@j.Organization.CompanyName</td>
+                    <td>@j.City, @j.State</td>
+                    <td id="details">
+                        @Html.ActionLink("Details", "Details", new { id = j.Id }, new { @class = "btn btn-primary" })
+                    </td>
 
-        @foreach (var j in Model)
-        {
-            <tr>
-                <td>@j.Organization</td>
-                <td>@j.TypeOfJob</td>
-                <td>@j.TypeOfJob</td>
-                <td>@j.Address</td>
-                <td>@j.City</td>
-                <td>@j.State</td>
-                <td>@j.PositionsAvailable</td>
-                <td id="details">
-                    @Html.ActionLink("Details", "Details", new { id = j.Id }, new { @class = "btn btn-primary" })
-                    @*<form asp-controller="Volunteer" asp-action="JobDetails" >
-                        <input asp-for="j.Id"  type="submit" value="Details" />
-                    </form>*@
-                </td>
+                </tr>
+            }
 
-            </tr>
-        }
-
-    </table>
+        </table>
+    </div>
 </div>

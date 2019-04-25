@@ -16,7 +16,7 @@ namespace VolunteerSite.WebUI.ViewModels
         [DataType(DataType.Text)]
         public string City { get; set; }
         [DataType(DataType.Text)]
-        public int State { get; set; }
+        public string State { get; set; }
         [DataType(DataType.Text)]
         public string Email { get; set; }
         [DataType(DataType.Text)]

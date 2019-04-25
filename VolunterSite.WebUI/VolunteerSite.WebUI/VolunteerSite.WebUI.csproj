@@ -18,9 +18,4 @@
     <ProjectReference Include="..\VolunteerSite.Service\VolunteerSite.Service.csproj" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Folder Include="wwwroot\images\organization\" />
-  </ItemGroup>
-
 </Project>

@@ -28,13 +28,8 @@ namespace VolunteerSite.Data.Implementation.EFCore
                 var volunteerGroupToBeDeleted = GetById(volunteerGroupId);
                 context.Remove(volunteerGroupToBeDeleted);
                 context.SaveChanges();
-
-                if (GetById(volunteerGroupId) == null)
-                {
-                    return true;
-                }
-
-                return false;
+                
+                return true;
             }
         }
 
@@ -60,8 +55,8 @@ namespace VolunteerSite.Data.Implementation.EFCore
         {
             using (var context = new VolunteerSiteDbContext())
             {
-                IEnumerable<VolunteerGroup> returnedGroups = context.VolunteerGroups.AsEnumerable().TakeWhile(g => g.GroupAdminId == adminId).ToList();
-                return returnedGroups;
+                return context.VolunteerGroups.Where(g => g.GroupAdminId == adminId).ToList();
+                
             }
         }
 
@@ -70,7 +65,8 @@ namespace VolunteerSite.Data.Implementation.EFCore
             using (var context = new VolunteerSiteDbContext())
             {
                 var existingVolunteerGroup = GetById(updatedVolunteerGroup.Id);
-                context.Entry(existingVolunteerGroup).CurrentValues.SetValues(updatedVolunteerGroup);
+                existingVolunteerGroup.GroupName = updatedVolunteerGroup.GroupName;
+                context.VolunteerGroups.Update(existingVolunteerGroup);
                 context.SaveChanges();
 
                 return existingVolunteerGroup;

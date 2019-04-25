@@ -91,6 +91,49 @@ namespace VolunteerSite.WebUI.Controllers
         }
 
         [HttpGet]
+        public IActionResult EditOrg()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult EditOrg(EditOrganizationViewModel input)
+        {
+            var organization = _organizationService.GetByAdminId(_userManager.GetUserId(User));
+            
+            IFormFile image = input.Image;
+
+            if (image != null && image.Length > 0)
+            {
+                // _environment.WebRootPath --> ~/wwwroot/images/Organization
+                string storageFolder = Path.Combine(_environment.WebRootPath, "images/organization");
+
+                string newImageName = $"{Guid.NewGuid().ToString()}{Path.GetExtension(image.FileName)}";
+
+                // ~/wwwroot/images/home/GUID.jpg
+                string fullPath = Path.Combine(storageFolder, newImageName);
+
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    image.CopyTo(stream);
+                }
+
+                // append new image location to newHome
+                organization.LogoImageURL = $"/images/Organization/{newImageName}";
+            }
+
+            organization.CompanyName = input.CompanyName;
+            organization.Address = input.Address;
+            organization.City = input.City;
+            organization.State = input.State;
+            organization.Email = input.Email;
+            organization.PhoneNumber = input.PhoneNumber;
+
+            _organizationService.Update(organization);
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
         public IActionResult CreateJob() => View();
         [HttpPost]
         public IActionResult CreateJob(CreateJobViewModel vm)
@@ -98,6 +141,7 @@ namespace VolunteerSite.WebUI.Controllers
             var adminId = _userManager.GetUserId(User);
             JobListing newJobListing = vm.JobListing;
             Organization organization = _organizationService.GetByAdminId(adminId);
+            newJobListing.Organization = organization;
             newJobListing.OrganizationId = organization.Id;
 
             
