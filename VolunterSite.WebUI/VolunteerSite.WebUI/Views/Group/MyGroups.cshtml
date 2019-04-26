@@ -6,23 +6,11 @@
 <h1>Groups I Own</h1>
 <a class="btn btn-primary" asp-action="CreateGroup" role="button">Create Group</a>
 <table class="table table-bordered">
-    <tr>
-        <th>
-            VolunteerGroup
-        </th>
-        <th>
-            Edit
-        </th>
-        <th>
-            Delete
-        </th>
-    </tr>
     @foreach (var g in Model)
     {
-        <tr>
-            <td>@g.GroupName</td>
-            <td>@Html.ActionLink("Edit", "EditGroup", new { id = g.Id }, new { @class = "btn btn-primary" })</td>
-            <td>@Html.ActionLink("Delete", "DeleteGroup", new { id = g.Id }, new { @class = "btn btn-primary" })</td>
-        </tr>
+    <tr>
+        <td>@g.GroupName</td>
+        <td>@Html.ActionLink("Edit", "EditGroup", new { id = g.Id }, new { @class = "btn btn-primary" }) @Html.ActionLink("Delete", "DeleteGroup", new { id = g.Id }, new { @class = "btn btn-primary" })</td>
+    </tr>
     }
 </table>

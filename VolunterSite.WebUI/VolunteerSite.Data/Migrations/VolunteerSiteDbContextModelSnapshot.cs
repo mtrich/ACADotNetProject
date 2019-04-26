@@ -45,24 +45,17 @@ namespace VolunteerSite.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ab01e8b9-c7a0-4317-96e2-12397f4dbeba",
-                            ConcurrencyStamp = "4aa233f2-5ef9-420c-9cf4-38f4e9704765",
+                            Id = "e8e7c7b0-a8b4-451a-9bc5-151a68d15e0b",
+                            ConcurrencyStamp = "77af6a6d-2996-4727-ae99-e4dbea0922ce",
                             Name = "Volunteer",
                             NormalizedName = "VOLUNTEER"
                         },
                         new
                         {
-                            Id = "a6cb033e-1027-42a6-b160-6ae02fc3b954",
-                            ConcurrencyStamp = "d4b6aa5f-1967-463d-9183-36889fbce7b3",
+                            Id = "53968156-86e4-4d02-b3d1-e06589ff4111",
+                            ConcurrencyStamp = "0d7b241d-17a0-4633-b52a-372ddce99c5b",
                             Name = "OrganizationAdmin",
                             NormalizedName = "ORGANIZATIONADMIN"
-                        },
-                        new
-                        {
-                            Id = "91f0a660-cac1-4a28-8291-c3ddcf1970b3",
-                            ConcurrencyStamp = "ad682c8b-f91f-45fc-89e3-882024f7743e",
-                            Name = "GroupAdmin",
-                            NormalizedName = "GROUPADMIN"
                         });
                 });
 
@@ -302,13 +295,25 @@ namespace VolunteerSite.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<int>("JobListingId");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("PhoneNumber");
+
                     b.Property<int>("VolunteerId");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("JobListingId");
+
                     b.HasIndex("VolunteerId");
 
-                    b.ToTable("SavedJobListing");
+                    b.ToTable("SavedJobListings");
                 });
 
             modelBuilder.Entity("VolunteerSite.Domain.Models.Volunteer", b =>
@@ -321,19 +326,17 @@ namespace VolunteerSite.Data.Migrations
 
                     b.Property<string>("FirstName");
 
-                    b.Property<int?>("JobListingId");
-
                     b.Property<string>("LastName");
 
                     b.Property<string>("PhoneNumber");
+
+                    b.Property<string>("ProfileImageURL");
 
                     b.Property<string>("SkillsAndExperience");
 
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("JobListingId");
 
                     b.HasIndex("UserId")
                         .IsUnique()
@@ -444,6 +447,11 @@ namespace VolunteerSite.Data.Migrations
 
             modelBuilder.Entity("VolunteerSite.Domain.Models.SavedJobListing", b =>
                 {
+                    b.HasOne("VolunteerSite.Domain.Models.JobListing", "JobListing")
+                        .WithMany("SignedVolunteers")
+                        .HasForeignKey("JobListingId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("VolunteerSite.Domain.Models.Volunteer", "Volunteer")
                         .WithMany("SavedJobListings")
                         .HasForeignKey("VolunteerId")
@@ -453,10 +461,6 @@ namespace VolunteerSite.Data.Migrations
 
             modelBuilder.Entity("VolunteerSite.Domain.Models.Volunteer", b =>
                 {
-                    b.HasOne("VolunteerSite.Domain.Models.JobListing")
-                        .WithMany("Volunteers")
-                        .HasForeignKey("JobListingId");
-
                     b.HasOne("VolunteerSite.Domain.Models.AppUser", "User")
                         .WithOne("Volunteer")
                         .HasForeignKey("VolunteerSite.Domain.Models.Volunteer", "UserId");

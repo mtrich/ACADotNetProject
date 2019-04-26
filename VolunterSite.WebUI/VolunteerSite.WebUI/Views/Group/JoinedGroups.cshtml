@@ -1,18 +1,17 @@
-﻿@model VolunteerGroup
+﻿@model List<VolunteerGroup>
 @{
     ViewData["Title"] = "JoinedGroups";
 }
 
 <h1>Joined Group</h1>
-
-<h2>@Model.GroupName</h2>
-@*<table class="table table-bordered">
-    @foreach (var g in @Model.GroupMembers)
+<table class="table table-bordered">
+    @foreach (var g in Model)
     {
         <tr>
-            <td>@g.FirstName</td>
+            <td>@g.GroupName</td>
+            <td>@Html.ActionLink("Group Page", "GroupPage", new { id = g.Id }, new { @class = "btn btn-primary" })</td>
         </tr>
     }
     
-</table>*@
+</table>
 

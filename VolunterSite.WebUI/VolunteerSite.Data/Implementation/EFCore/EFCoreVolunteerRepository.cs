@@ -63,6 +63,7 @@ namespace VolunteerSite.Data.Implementation.EFCore
                 existingVolunteer.PhoneNumber = updatedVolunteer.PhoneNumber;
                 existingVolunteer.Email = updatedVolunteer.Email;
                 existingVolunteer.SkillsAndExperience = updatedVolunteer.SkillsAndExperience;
+                existingVolunteer.ProfileImageURL = updatedVolunteer.ProfileImageURL;
                 context.Volunteers.Update(existingVolunteer);
                 context.SaveChanges();
 

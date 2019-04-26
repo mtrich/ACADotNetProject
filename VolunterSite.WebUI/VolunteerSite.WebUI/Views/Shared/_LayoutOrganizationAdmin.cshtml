@@ -31,7 +31,7 @@
                     <!-- hidden spacer to center brand on mobile -->
                 </span>
                 <a class="navbar-brand d-none d-lg-inline-block" href="#">
-                    <img id="logo" src="img/logo.png">
+                    <img id="logo" src="~/img/logo.png">
                 </a>
                 <div class="w-100 text-right">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
@@ -42,16 +42,27 @@
             <div class="collapse navbar-collapse flex-grow-1 text-right" id="myNavbar">
                 <ul class="navbar-nav ml-auto flex-nowrap">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="OrganizationAdmin" asp-action="List">Job List</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="OrganizationAdmin" asp-action="List">JobList</a>
+                        <a class="nav-link text-dark" asp-area="" asp-controller="OrganizationAdmin" asp-action="CreateJob">Create Job</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="OrganizationAdmin" asp-action="Index">Manage</a>
+                    </li>
+                    <li class="nav-item">
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            <form class="signout" method="post" asp-controller="Account" asp-action="SignOut">
+                                <input class="btn btn-light" type="submit" value="Sign Out" />
+                            </form>
+                        }
+                        else
+                        {
+                            <form class="signout" method="get" asp-controller="Account" asp-action="SignIn">
+                                <input class="btn btn-light" type="submit" value="Sign In" />
+                            </form>
+                        }
                     </li>
                 </ul>
             </div>

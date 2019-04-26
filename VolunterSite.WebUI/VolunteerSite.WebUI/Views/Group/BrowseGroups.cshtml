@@ -1,4 +1,4 @@
-﻿@model ICollection<VolunteerGroup>
+﻿@model BrowseGroupsViewModel
 
 @{
     ViewData["Title"] = "BrowseGroups";
@@ -14,7 +14,7 @@
                 VolunteerGroup
             </th>
         </tr>
-        @foreach (var g in Model)
+        @foreach (var g in @Model.Groups)
         {
             <tr>
                 <td>@g.GroupName</td>

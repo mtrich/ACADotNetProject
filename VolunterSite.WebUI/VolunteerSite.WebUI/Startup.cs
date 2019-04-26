@@ -95,6 +95,7 @@ namespace VolunteerSite.WebUI
             services.AddScoped<IOrganizationRepository, EFCoreOrganizationRepository>();
             services.AddScoped<IVolunteerGroupRepository, EFCoreVolunteerGroupRepository>();
             services.AddScoped<IVolunteerRepository, EFCoreVolunteerRepository>();
+            services.AddScoped<ISavedJobListingRepository, EFCoreSavedJobListingRepository>();
         }
         private void GetDependencyResolvedForServiceLayer(IServiceCollection services)
         {
@@ -103,6 +104,7 @@ namespace VolunteerSite.WebUI
             services.AddScoped<IOrganizationService, OrganizationService>();
             services.AddScoped<IVolunteerGroupService, VolunteerGroupService>();
             services.AddScoped<IVolunteerService, VolunteerService>();
+            services.AddScoped<ISavedJobListingService, SavedJobListingService>();
         }
         private void SetUpIdentityPassword(IServiceCollection services)
         {

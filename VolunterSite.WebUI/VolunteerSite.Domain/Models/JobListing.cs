@@ -21,7 +21,7 @@ namespace VolunteerSite.Domain.Models
         public Organization Organization { get; set; }
 
         // Navigation Collection
-        public ICollection<Volunteer> Volunteers { get; set; }
+        public IEnumerable<SavedJobListing> SignedVolunteers { get; set; }
 
     }
 }

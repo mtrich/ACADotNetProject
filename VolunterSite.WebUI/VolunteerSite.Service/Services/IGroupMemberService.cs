@@ -11,6 +11,7 @@ namespace VolunteerSite.Service.Services
         GroupMember GetById(int groupMemberId);
         GroupMember GetByVolunteerId(int volunteerId);
         ICollection<GroupMember> GetByGroupId(int volunteerGroupId);
+        IEnumerable<GroupMember> GetAllByVolunteerId(int volunteerId);
         GroupMember Create(GroupMember newGroupMember);
         GroupMember Update(GroupMember UpdatedGroupMember);
         bool DeleteById(int groupMemberId);
@@ -32,6 +33,11 @@ namespace VolunteerSite.Service.Services
         public bool DeleteById(int groupMemberId)
         {
             return _groupMemberRepository.DeleteById(groupMemberId);
+        }
+
+        public IEnumerable<GroupMember> GetAllByVolunteerId(int volunteerId)
+        {
+            return _groupMemberRepository.GetAllByVolunteerId(volunteerId);
         }
 
         public ICollection<GroupMember> GetByGroupId(int volunteerGroupId)

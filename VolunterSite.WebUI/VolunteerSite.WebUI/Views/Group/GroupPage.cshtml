@@ -1,0 +1,27 @@
+﻿@model GroupDetailsViewModel
+
+@{
+    ViewData["Title"] = "GroupPage";
+}
+
+<h1>GroupPage</h1>
+
+<div>
+    <h4>VolunteerGroup</h4>
+    <hr />
+    <h4>@Model.Group.GroupName</h4>
+    <table class="table table-bordered">
+        <tr>
+            <th>Group Members</th>
+        </tr>
+        @foreach(var m in Model.GroupMembers)
+        {
+            <tr>
+                <td>@m.FirstName @m.LastName</td>
+            </tr>
+        }
+    </table>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

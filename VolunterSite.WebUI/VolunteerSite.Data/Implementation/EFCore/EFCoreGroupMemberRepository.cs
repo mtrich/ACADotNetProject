@@ -50,6 +50,7 @@ namespace VolunteerSite.Data.Implementation.EFCore
         {
             using (var context = new VolunteerSiteDbContext())
             {
+
                 return context.GroupMembers.Single(m => m.Id == groupMemberId);
             }
         }
@@ -68,6 +69,15 @@ namespace VolunteerSite.Data.Implementation.EFCore
                 {
                     return null;
                 }
+            }
+        }
+
+        public IEnumerable<GroupMember> GetAllByVolunteerId(int volunteerId)
+        {
+            using (var context = new VolunteerSiteDbContext())
+            {
+                return context.GroupMembers.Where(m => m.VolunteerId == volunteerId).ToList();
+
             }
         }
 

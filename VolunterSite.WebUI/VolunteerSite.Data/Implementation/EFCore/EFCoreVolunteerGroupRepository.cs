@@ -37,8 +37,10 @@ namespace VolunteerSite.Data.Implementation.EFCore
         {
             using (var context = new VolunteerSiteDbContext())
             {
+                var Group = context.VolunteerGroups.Single(v => v.Id == volunteerGroupId);
+                context.Entry(Group).Collection(v => v.GroupMembers).Load();
                 
-                return context.VolunteerGroups.Single(v => v.Id == volunteerGroupId);
+                return Group;
             }
         }
 
@@ -66,6 +68,7 @@ namespace VolunteerSite.Data.Implementation.EFCore
             {
                 var existingVolunteerGroup = GetById(updatedVolunteerGroup.Id);
                 existingVolunteerGroup.GroupName = updatedVolunteerGroup.GroupName;
+                existingVolunteerGroup.GroupMembers = updatedVolunteerGroup.GroupMembers;
                 context.VolunteerGroups.Update(existingVolunteerGroup);
                 context.SaveChanges();
 

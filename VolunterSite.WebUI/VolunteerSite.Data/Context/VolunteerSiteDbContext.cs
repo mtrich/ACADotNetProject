@@ -18,6 +18,7 @@ namespace VolunteerSite.Data.Context
         public DbSet<JobListing> JobListings { get; set; }
         public DbSet<GroupMember> GroupMembers { get; set; }
         public DbSet<Volunteer> Volunteers { get; set; }
+        public DbSet<SavedJobListing> SavedJobListings { get; set; }
 
         // Setting up the provider (SQL Server) and location of the Database
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
@@ -62,8 +63,7 @@ namespace VolunteerSite.Data.Context
 
             modelBuilder.Entity<IdentityRole>().HasData(
                 new IdentityRole { Name = "Volunteer", NormalizedName = "VOLUNTEER" },
-                new IdentityRole { Name = "OrganizationAdmin", NormalizedName = "ORGANIZATIONADMIN" },
-                new IdentityRole { Name = "GroupAdmin", NormalizedName = "GROUPADMIN" }
+                new IdentityRole { Name = "OrganizationAdmin", NormalizedName = "ORGANIZATIONADMIN" }
                 );
         }   
     }

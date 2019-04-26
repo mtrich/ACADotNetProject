@@ -1,8 +1,8 @@
-﻿@model VolunteerEditViewModel
+﻿@model CreateVolunteerViewModel
 
 <h1>Create Profile</h1>
 
-<form asp-action="CreateProfile" method="post">
+<form asp-action="CreateProfile" method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="Volunteer.FirstName"></label>
         <input class="form-control" asp-for="Volunteer.FirstName" />
@@ -22,6 +22,10 @@
     <div class="form-group">
         <label asp-for="Volunteer.SkillsAndExperience"></label>
         <input class="form-control" asp-for="Volunteer.SkillsAndExperience" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Image"></label>
+        <input type="file" accept=".jpg" class="form-control-file" asp-for="Image" />
     </div>
     <button type="submit" class="btn btn-primary">submit</button>
 </form>

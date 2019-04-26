@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,8 +10,6 @@ namespace VolunteerSite.WebUI.ViewModels
 {
     public class VolunteerEditViewModel
     {
-        public Volunteer Volunteer { get; set; }
-
         [DataType(DataType.Text)]
         public string FirstName { get; set; }
         [DataType(DataType.Text)]
@@ -21,5 +20,7 @@ namespace VolunteerSite.WebUI.ViewModels
         public string PhoneNumber { get; set; }
         [DataType(DataType.Text)]
         public string SkillsAndExperience { get; set; }
+
+        public IFormFile Image { get; set; }
     }
 }

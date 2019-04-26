@@ -51,5 +51,10 @@ namespace VolunteerSite.Data.Implementation.Mock
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<GroupMember> GetAllByVolunteerId(int volunteerId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

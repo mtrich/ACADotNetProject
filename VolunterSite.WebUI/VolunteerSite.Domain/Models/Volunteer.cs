@@ -12,6 +12,7 @@ namespace VolunteerSite.Domain.Models
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string SkillsAndExperience { get; set; }
+        public string ProfileImageURL { get; set; }
 
         //fk
         public string UserId { get; set; }

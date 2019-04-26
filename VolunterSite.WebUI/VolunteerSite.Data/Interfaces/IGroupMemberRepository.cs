@@ -11,6 +11,7 @@ namespace VolunteerSite.Data.Interfaces
         GroupMember GetById(int groupMemberId);
         GroupMember GetByVolunteerId(int volunteerId);
         ICollection<GroupMember> GetByGroupId(int volunteerGroupId);
+        IEnumerable<GroupMember> GetAllByVolunteerId(int volunteerId);
 
 
         //create

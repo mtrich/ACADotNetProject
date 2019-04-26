@@ -3,6 +3,7 @@
 <h1>Profile</h1>
 
 <div class="profile-info">
+    <img src="@Model.ProfileImageURL" alt="company Logo" class="logo">
     <ul>
         <li>First Name - @Model.FirstName</li>
         <li>Last Name - @Model.LastName</li>
@@ -11,5 +12,5 @@
         <li>SkillsAndExperience - @Model.SkillsAndExperience</li>
 
     </ul>
-    @Html.ActionLink("Edit Profile", "EditProfile", new { id = Model.Id }, new { @class="btn btn-primary" })
+    @Html.ActionLink("Edit Profile", "EditProfile", new { id = Model.Id }, new { @class = "btn btn-primary" })
 </div>

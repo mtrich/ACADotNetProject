@@ -9,6 +9,7 @@ using VolunteerSite.Data.Interfaces;
 using VolunteerSite.Domain.Models;
 using VolunteerSite.Service.Services;
 using VolunteerSite.WebUI.ViewModels;
+using VolunteerSite.Data.Context;
 
 namespace VolunteerSite.WebUI.Controllers
 {
@@ -36,10 +37,38 @@ namespace VolunteerSite.WebUI.Controllers
             return View();
         }
 
-        public IActionResult BrowseGroups()
+        public IActionResult BrowseGroups(BrowseGroupsViewModel vm)
         {
-            ICollection<VolunteerGroup> groups = _volunteerGroupService.GetAll();
-            return View(groups);
+            var userId = _userManager.GetUserId(User);
+            Volunteer volunteer = _volunteerService.GetByUserId(userId);
+            IEnumerable<GroupMember> userGroupMembers = _GroupMemberService.GetAllByVolunteerId(volunteer.Id);
+            vm.Groups = _volunteerGroupService.GetAll();
+            List<VolunteerGroup> alteredList = new List<VolunteerGroup>();
+            List<VolunteerGroup> groupsToRemove = new List<VolunteerGroup>();
+            foreach (var groupMember in userGroupMembers)
+            {
+                groupsToRemove.Add(_volunteerGroupService.GetById(groupMember.VolunteerGroupId));
+            }
+            foreach(var g in vm.Groups)
+            {
+                alteredList.Add(g);
+                if(g.GroupAdminId == userId)
+                {
+                    alteredList.Remove(g);
+                }
+            }
+            foreach(var r in groupsToRemove)
+            { 
+                foreach(var g in vm.Groups)
+                {
+                    if(g.Id == r.Id)
+                    {
+                        alteredList.Remove(g);
+                    }
+                }
+            }
+            vm.Groups = alteredList;
+            return View(vm);
         }
 
         public IActionResult MyGroups(IEnumerable<VolunteerGroup> UserGroups)
@@ -95,32 +124,41 @@ namespace VolunteerSite.WebUI.Controllers
         {
             var group = _volunteerGroupService.GetById(Id);
             var volunteer = _volunteerService.GetByUserId(_userManager.GetUserId(User));
-            var groupMember = _GroupMemberService.GetByVolunteerId(volunteer.Id);
-            if(groupMember == null)
+
+            GroupMember groupMember = new GroupMember
             {
-                groupMember = new GroupMember();
-                groupMember.FirstName = volunteer.FirstName;
-                groupMember.LastName = volunteer.LastName;
-                groupMember.Email = volunteer.Email;
-                groupMember.PhoneNumber = volunteer.PhoneNumber;
-                groupMember.VolunteerId = volunteer.Id;
-                groupMember.VolunteerGroupId = group.Id;
-                _GroupMemberService.Create(groupMember);
-                group.GroupMembers.Append(groupMember);
-            }
-            else
-            {
-                groupMember.VolunteerGroup = group;
-                _GroupMemberService.Update(groupMember);
-                group.GroupMembers.Append(groupMember);
-            }
+                FirstName = volunteer.FirstName,
+                LastName = volunteer.LastName,
+                Email = volunteer.Email,
+                PhoneNumber = volunteer.PhoneNumber,
+                //groupMember.Volunteer = volunteer;
+                VolunteerId = volunteer.Id,
+                //groupMember.VolunteerGroup = group;
+                VolunteerGroupId = group.Id
+            };
+
+            _GroupMemberService.Create(groupMember);
+            List<GroupMember> groupMembers = new List<GroupMember>();
+            groupMembers.Append(groupMember);
+            group.GroupMembers = groupMembers;
+            _volunteerGroupService.Update(group);
             
-            return View("Index");
+            return View("BrowseGroups");
         }
 
-        public IActionResult JoinedGroups()
+        public IActionResult JoinedGroups(List<VolunteerGroup> joinedGroups)
         {
-            return View();
+            //get volunteer
+            Volunteer currentUser = _volunteerService.GetByUserId(_userManager.GetUserId(User));
+            //get groupmembers by volunteerId
+            IEnumerable<GroupMember> userGroupMembers = _GroupMemberService.GetAllByVolunteerId(currentUser.Id);
+            //get groups by groupmembers
+            foreach(var groupMember in userGroupMembers)
+            {
+                joinedGroups.Add(_volunteerGroupService.GetById(groupMember.VolunteerGroupId));
+            }
+            
+            return View(joinedGroups);
         }
 
         [HttpGet]
@@ -133,6 +171,13 @@ namespace VolunteerSite.WebUI.Controllers
             newGroup.GroupAdminId = _userManager.GetUserId(User);
             _volunteerGroupService.Create(newGroup);
             return RedirectToAction("MyGroups");
+        }
+
+        public IActionResult GroupPage(int id, GroupDetailsViewModel vm)
+        {
+            vm.Group = _volunteerGroupService.GetById(id);
+            vm.GroupMembers = vm.Group.GroupMembers;
+            return View(vm);
         }
     }
 }

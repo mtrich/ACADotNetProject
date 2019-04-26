@@ -13,6 +13,9 @@
                     <td>@j.City, @j.State</td>
                     <td id="details">
                         @Html.ActionLink("Details", "Details", new { id = j.Id }, new { @class = "btn btn-primary" })
+                        <form method="post" asp-controller="Volunteer" asp-action="JoinJob" asp-route-Id="@j.Id">
+                            <input class="btn btn-primary" type="submit" value="Join Job" />
+                        </form>
                     </td>
 
                 </tr>
