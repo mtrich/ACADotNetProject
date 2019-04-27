@@ -4,26 +4,30 @@
     ViewData["Title"] = "BrowseGroups";
 }
 
-<h1>BrowseGroups</h1>
+<h1 class="jumbotron" id="Browse-Group">Browse Groups</h1>
 
-<div>
-    <h4>VolunteerGroups</h4>
-    <table class="table table-bordered">
-        <tr>
-            <th>
-                VolunteerGroup
-            </th>
-        </tr>
-        @foreach (var g in @Model.Groups)
-        {
-            <tr>
-                <td>@g.GroupName</td>
-                <td>
-                    <form method="post" asp-controller="Group" asp-action="JoinGroup" asp-route-Id="@g.Id">
-                        <input class="btn btn-primary" type="submit" value="Join Group" />
-                    </form>
-            </tr>
-        }
-    </table>
-    
+<div class="container padding">
+    <div class="row text-center">
+        <div class="col-12 padding">
+            <h4>VolunteerGroups</h4>
+            <table class="table table-dark">
+                <tr>
+                    <th>
+                        VolunteerGroup
+                    </th>
+                </tr>
+                @foreach (var g in @Model.Groups)
+                {
+                    <tr>
+                        <td>@g.GroupName</td>
+                        <td>
+                            <form method="post" asp-controller="Group" asp-action="JoinGroup" asp-route-Id="@g.Id">
+                                <input class="btn btn-light" type="submit" value="Join Group" />
+                            </form>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+   
 </div>

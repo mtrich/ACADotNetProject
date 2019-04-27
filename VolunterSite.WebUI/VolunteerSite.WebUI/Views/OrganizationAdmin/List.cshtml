@@ -3,8 +3,8 @@
 
 <h1>Job Listings</h1>
 <a class="btn btn-primary" asp-action="createJob" role="button">Create JobListing</a>
-<div>
-    <table class="table table-bordered">
+<div class="container">
+    <table class="table-responsive table-dark">
         <tr>
             <th>Type Of Job</th>
             <th>Date</th>
@@ -12,21 +12,21 @@
             <th>Address</th>
             <th>City</th>
             <th>State</th>
-            <th>Positions Available</th>
         </tr>
 
         @foreach(var j in Model)
         {
         <tr>
+            <td>@Html.ActionLink("Edit", "EditJob", new { id = j.Id }, new { @class = "btn btn-primary" })<br /><br /> @Html.ActionLink("Delete", "DeleteJob", new { id = j.Id }, new { @class = "btn btn-primary" })</td>
             <td>@j.TypeOfJob</td>
             <td>@j.Date</td>
             <td>@j.Description</td>
             <td>@j.Address</td>
             <td>@j.City</td>
             <td>@j.State</td>
-            <td>@j.PositionsAvailable</td>
-            <td>@Html.ActionLink("Edit", "EditJob", new { id = j.Id }, new { @class = "btn btn-primary" }) @Html.ActionLink("Delete", "DeleteJob", new { id = j.Id }, new { @class = "btn btn-primary" })</td>
-      
+            <td>@Html.ActionLink("View Interested Volunteers", "SignedVolunteers", new { id = j.Id }, new { @class = "btn btn-primary" })</td>
+
+
         </tr>
         }
         

@@ -2,16 +2,24 @@
 @{
     ViewData["Title"] = "JoinedGroups";
 }
+<div class="container-fluid padding">
+    <div class="row padding">
+        <div class="col-12">
+            <h1 class="jumbotron">Your Groups</h1>
+        </div>
+        <div class="col-12 text-bcenter">
+            <table class="table table-dark">
+                @foreach (var g in Model)
+                {
+                    <tr>
+                        <td id="groupName">@g.GroupName</td>
+                        <td>@Html.ActionLink("Group Page", "GroupPage", new { id = g.Id }, new { @class = "btn btn-primary btn-mar" }) @Html.ActionLink("Leave", "LeaveGroup", new { id = g.Id }, new { @class = "btn btn-light ml-3" })</td>
+                    </tr>
+                }
 
-<h1>Joined Group</h1>
-<table class="table table-bordered">
-    @foreach (var g in Model)
-    {
-        <tr>
-            <td>@g.GroupName</td>
-            <td>@Html.ActionLink("Group Page", "GroupPage", new { id = g.Id }, new { @class = "btn btn-primary" })</td>
-        </tr>
-    }
-    
-</table>
+            </table>
+        </div>
+    </div>
+</div>
+
 

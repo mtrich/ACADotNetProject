@@ -24,13 +24,17 @@ namespace VolunteerSite.WebUI.Controllers
         private readonly IOrganizationService _organizationService;
         private readonly IHostingEnvironment _environment;
         private readonly ISavedJobListingService _savedJobListingService;
+        private readonly IGroupMemberService _groupMemberService;
+        private readonly IVolunteerGroupService _volunteerGroupService;
 
         public VolunteerController(IVolunteerService volunteerService,
             IJobListingService jobListingService,
             UserManager<AppUser> userManager,
             IOrganizationService organizationService,
             IHostingEnvironment environment,
-            ISavedJobListingService savedJobListingService)
+            ISavedJobListingService savedJobListingService,
+            IGroupMemberService groupMemberService,
+            IVolunteerGroupService volunteerGroupService)
         {
             _volunteerService = volunteerService;
             _jobListingService = jobListingService;
@@ -38,14 +42,32 @@ namespace VolunteerSite.WebUI.Controllers
             _organizationService = organizationService;
             _environment = environment;
             _savedJobListingService = savedJobListingService;
+            _groupMemberService = groupMemberService;
+            _volunteerGroupService = volunteerGroupService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(VolunteerHomeViewModel vm)
         {
             var volunteerId = _userManager.GetUserId(User);
+            vm.Volunteer = _volunteerService.GetByUserId(volunteerId);
+            vm.JobListings = new List<JobListing>();
+            vm.Groups = new List<VolunteerGroup>();
 
-            Volunteer volunteer = _volunteerService.GetByUserId(volunteerId);
-            return View(volunteer);
+            IEnumerable<SavedJobListing> savedJobListings = _savedJobListingService.GetAllByVolunteerId(vm.Volunteer.Id);
+
+            foreach (var jobListing in savedJobListings)
+            {
+                vm.JobListings.Add(_jobListingService.GetById(jobListing.JobListingId));
+            }
+
+            IEnumerable<GroupMember> userGroupMembers = _groupMemberService.GetAllByVolunteerId(vm.Volunteer.Id);
+
+            foreach(var groupMember in userGroupMembers)
+            {
+                vm.Groups.Add(_volunteerGroupService.GetById(groupMember.VolunteerGroupId));
+            }
+
+            return View(vm);
         }
 
         [HttpGet]
@@ -138,13 +160,51 @@ namespace VolunteerSite.WebUI.Controllers
    
         public IActionResult JobList(JobListViewModel vm)
         {
-            var Joblistings = _jobListingService.GetAll();
-            foreach(var j in Joblistings)
+                List<JobListing> alteredList = new List<JobListing>();
+                List<JobListing> jobsToRemove = new List<JobListing>();
+            if (User.IsInRole("Volunteer"))
             {
-                j.Organization = _organizationService.GetById(j.OrganizationId);
+                var userId = _userManager.GetUserId(User);
+                Volunteer volunteer = _volunteerService.GetByUserId(userId);
+                IEnumerable<SavedJobListing> userJobListings = _savedJobListingService.GetAllByVolunteerId(volunteer.Id);
+                vm.JobListings = _jobListingService.GetAll();
+                
+
+                foreach (var savedJobListing in userJobListings)
+                {
+                    jobsToRemove.Add(_jobListingService.GetById(savedJobListing.JobListingId));
+                }
+
+                foreach (var j in vm.JobListings)
+                {
+                    j.Organization = _organizationService.GetById(j.OrganizationId);
+                    alteredList.Add(j);
+                }
+                foreach (var r in jobsToRemove)
+                {
+                    foreach (var j in vm.JobListings)
+                    {
+                        if (j.Id == r.Id)
+                        {
+                            alteredList.Remove(j);
+                        }
+                    }
+                }
+                vm.JobListings = alteredList;
+                return View(vm);
             }
-            vm.JobListings = Joblistings;
-            return View(vm);
+            else
+            {
+                vm.JobListings = _jobListingService.GetAll();
+
+                foreach (var j in vm.JobListings)
+                {
+                    j.Organization = _organizationService.GetById(j.OrganizationId);
+                    alteredList.Add(j);
+                }
+                vm.JobListings = alteredList;
+                return View(vm);
+            }
         }
 
         [HttpGet]
@@ -187,12 +247,36 @@ namespace VolunteerSite.WebUI.Controllers
             Job.SignedVolunteers = savedJobListings;
             _jobListingService.Update(Job);
 
-            return View("JobList");
+            return RedirectToAction("JobList");
         }
 
-        public IActionResult TrackedJobs()
+        public IActionResult TrackedJobs(List<JobListing> jobListings)
         {
-            return View();
+            //get volunteer
+            Volunteer currentUser = _volunteerService.GetByUserId(_userManager.GetUserId(User));
+
+            IEnumerable<SavedJobListing> savedJobListings = _savedJobListingService.GetAllByVolunteerId(currentUser.Id);
+
+            foreach(var jobListing in savedJobListings)
+            {
+                jobListings.Add(_jobListingService.GetById(jobListing.JobListingId));
+            }
+            return View(jobListings);
+        }
+
+        public IActionResult LeaveJob(int id)
+        {
+            var volunteer = _volunteerService.GetByUserId(_userManager.GetUserId(User));
+            var savedJobs = _savedJobListingService.GetAllByVolunteerId(volunteer.Id);
+
+            foreach(var leftJob in savedJobs)
+            {
+                if(leftJob.JobListingId == id)
+                {
+                    _savedJobListingService.DeleteById(leftJob.Id);
+                }
+            }
+            return RedirectToAction("TrackedJobs");
         }
     }
 }

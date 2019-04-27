@@ -1,0 +1,20 @@
+﻿@model List<Volunteer>
+@{
+    ViewData["Title"] = "SignedVolunteers";
+}
+
+<h1>SignedVolunteers</h1>
+
+<table class="table table-bordered">
+
+    @foreach (var v in Model)
+    {
+    <tr>
+        <td>@v.FirstName</td>
+        <td>@v.LastName</td>
+        <td>@Html.ActionLink("View Profile", "VolunteerProfile", new { id = v.Id }, new { @class = "btn btn-primary" })</td>
+    </tr>
+    }
+
+</table>
+

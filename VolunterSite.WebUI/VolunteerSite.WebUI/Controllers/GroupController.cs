@@ -79,6 +79,13 @@ namespace VolunteerSite.WebUI.Controllers
             return View(UserGroups);
         }
 
+        public IActionResult GroupMemberProfile(int id)
+        {
+            GroupMember groupMember = _GroupMemberService.GetById(id);
+            Volunteer viewedGroupMember = _volunteerService.GetById(groupMember.VolunteerId);
+            return View(viewedGroupMember);
+        }
+
         [HttpGet]
         public IActionResult EditGroup(int Id)
         {
@@ -143,7 +150,22 @@ namespace VolunteerSite.WebUI.Controllers
             group.GroupMembers = groupMembers;
             _volunteerGroupService.Update(group);
             
-            return View("BrowseGroups");
+            return RedirectToAction("BrowseGroups");
+        }
+
+        public IActionResult LeaveGroup(int id)
+        {
+            var volunteer = _volunteerService.GetByUserId(_userManager.GetUserId(User));
+            var groupMembers = _GroupMemberService.GetAllByVolunteerId(volunteer.Id);
+
+            foreach(var group in groupMembers)
+            {
+                if(group.VolunteerGroupId == id)
+                {
+                    _GroupMemberService.DeleteById(group.Id);
+                }
+            }
+            return RedirectToAction("JoinedGroups");
         }
 
         public IActionResult JoinedGroups(List<VolunteerGroup> joinedGroups)

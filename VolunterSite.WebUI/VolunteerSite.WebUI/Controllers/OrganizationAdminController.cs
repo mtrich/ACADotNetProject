@@ -18,16 +18,22 @@ namespace VolunteerSite.WebUI.Controllers
     public class OrganizationAdminController : Controller
     {
         private readonly IJobListingService _jobListingService;
+        private readonly ISavedJobListingService _savedJobListingService;
+        private readonly IVolunteerService _volunteerService;
         private readonly UserManager<AppUser> _userManager;
         private readonly IOrganizationService _organizationService;
         private readonly IHostingEnvironment _environment;
 
         public OrganizationAdminController (IJobListingService jobListingService,
+            ISavedJobListingService savedJobListingService,
+            IVolunteerService volunteerService,
             UserManager<AppUser> userManager,
             IOrganizationService organizationService,
             IHostingEnvironment environment)
         {
             _jobListingService = jobListingService;
+            _savedJobListingService = savedJobListingService;
+            _volunteerService = volunteerService;
             _userManager = userManager;
             _organizationService = organizationService;
             _environment = environment;
@@ -51,6 +57,23 @@ namespace VolunteerSite.WebUI.Controllers
             var jobListings = _jobListingService.GetByOrganizationId(organization.Id);
 
             return View(jobListings);
+        }
+
+        public IActionResult SignedVolunteers(int id, List<Volunteer> volunteers)
+        {
+            IEnumerable <SavedJobListing> signedVolunteers = _savedJobListingService.GetByJobListingId(id);
+            foreach(var volunteer in signedVolunteers)
+            {
+                volunteers.Add(_volunteerService.GetById(volunteer.VolunteerId));
+            }
+
+            return View(volunteers);
+        }
+
+        public IActionResult VolunteerProfile(int id)
+        {
+            Volunteer viewedVolunteer = _volunteerService.GetById(id);
+            return View(viewedVolunteer);
         }
 
         [HttpGet]

@@ -3,14 +3,33 @@
     ViewData["Title"] = "MyGroup";
 }
 
-<h1>Groups I Own</h1>
-<a class="btn btn-primary" asp-action="CreateGroup" role="button">Create Group</a>
-<table class="table table-bordered">
-    @foreach (var g in Model)
-    {
-    <tr>
-        <td>@g.GroupName</td>
-        <td>@Html.ActionLink("Edit", "EditGroup", new { id = g.Id }, new { @class = "btn btn-primary" }) @Html.ActionLink("Delete", "DeleteGroup", new { id = g.Id }, new { @class = "btn btn-primary" })</td>
-    </tr>
-    }
-</table>
+
+
+<div class="container text-center padding">
+    <div class="row padding">
+        <div class="col-12 owned">
+            <h1 class="jumbotron">Groups I Own</h1>
+            <br />
+            <a class="btn btn-primary" asp-action="CreateGroup" role="button">Create Group</a>
+            
+            
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 tabled">
+                        <table class="table table-dark">
+                            @foreach (var g in Model)
+                            {
+                                <tr>
+                                    <td>@g.GroupName</td>
+                                    <td>@Html.ActionLink("Group Page", "GroupPage", new { id = g.Id }, new { @class = "btn btn-primary" }) @Html.ActionLink("Edit", "EditGroup", new { id = g.Id }, new { @class = "btn btn-primary" }) @Html.ActionLink("Delete", "DeleteGroup", new { id = g.Id }, new { @class = "btn btn-primary" })</td>
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

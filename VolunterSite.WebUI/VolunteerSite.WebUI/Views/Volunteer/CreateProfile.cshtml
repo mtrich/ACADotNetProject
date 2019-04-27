@@ -1,31 +1,32 @@
 ﻿@model CreateVolunteerViewModel
 
 <h1>Create Profile</h1>
-
-<form asp-action="CreateProfile" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <label asp-for="Volunteer.FirstName"></label>
-        <input class="form-control" asp-for="Volunteer.FirstName" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Volunteer.LastName"></label>
-        <input class="form-control" asp-for="Volunteer.LastName" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Volunteer.Email"></label>
-        <input class="form-control" asp-for="Volunteer.Email" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Volunteer.PhoneNumber"></label>
-        <input class="form-control" asp-for="Volunteer.PhoneNumber" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Volunteer.SkillsAndExperience"></label>
-        <input class="form-control" asp-for="Volunteer.SkillsAndExperience" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Image"></label>
-        <input type="file" accept=".jpg" class="form-control-file" asp-for="Image" />
-    </div>
-    <button type="submit" class="btn btn-primary">submit</button>
-</form>
+<div class="container">
+    <form asp-action="CreateProfile" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label asp-for="Volunteer.FirstName"></label>
+            <input class="form-control" asp-for="Volunteer.FirstName" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Volunteer.LastName"></label>
+            <input class="form-control" asp-for="Volunteer.LastName" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Volunteer.Email"></label>
+            <input class="form-control" asp-for="Volunteer.Email" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Volunteer.PhoneNumber"></label>
+            <input class="form-control" asp-for="Volunteer.PhoneNumber" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Volunteer.SkillsAndExperience"></label>
+            <textarea class="form-control" rows="5" id="comment" asp-for="Volunteer.SkillsAndExperience"></textarea>
+        </div>
+        <div class="form-group">
+            <label asp-for="Image"></label>
+            <input type="file" accept=".jpg" class="form-control-file" asp-for="Image" />
+        </div>
+        <button type="submit" class="btn btn-primary">submit</button>
+    </form>
+</div>

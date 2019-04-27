@@ -1,0 +1,32 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,700');
+
+html body
+{
+    height: 100%;
+    width: 100%;
+    font-family: 'Poppins', sans-serif !important;
+    color: #222;
+}
+.firstName
+{
+    background: #867e7e;
+    box-shadow: 1px 1px 8px #4b3361;
+    border-radius: 10px;
+}
+.firstName h3
+{
+    font-size: 375%;
+    
+}
+.bordered
+{
+    border-left: 1px solid #808080;
+}
+#group-list
+{
+    list-style: none;
+}
+.group-btn
+{
+    margin:0;
+}

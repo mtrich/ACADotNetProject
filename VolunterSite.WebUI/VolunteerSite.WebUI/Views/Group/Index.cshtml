@@ -2,11 +2,21 @@
 @{
     ViewData["Title"] = "Index";
 }
+<div class="container padding">
+    <div class="row text center">
+        <div class="col-12 jumbotron">
+            <h1 id="Groups">Groups</h1>
+        </div>
+    </div>
+   
+    <div class="row text center">
+        <div class="col-12">
+            <a class="btn btn-primary group-buttons" asp-action="BrowseGroups" role="button">Browse</a>
+            <a class="btn btn-primary group-buttons" asp-action="JoinedGroups" role="button">My Groups</a>
+            <a class="btn btn-primary group-buttons" asp-action="MyGroups" role="button">Manage</a>
+        </div>
+    </div>
 
-<h1>Groups</h1>
-
-<a class="btn btn-primary" asp-action="BrowseGroups" role="button">Browse Groups</a>
-<a class="btn btn-primary" asp-action="JoinedGroups" role="button">Joined Groups</a>
-<a class="btn btn-primary" asp-action="MyGroups" role="button">My Groups</a>
+</div>
 
 

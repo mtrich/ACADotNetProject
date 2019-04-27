@@ -29,12 +29,7 @@ namespace VolunteerSite.Data.Implementation.EFCore
                 context.Remove(SavedJobListingToBeDeleted);
                 context.SaveChanges();
 
-                if (GetById(SavedJobListingId) == null)
-                {
-                    return true;
-                }
-
-                return false;
+                return true;
             }
         }
 

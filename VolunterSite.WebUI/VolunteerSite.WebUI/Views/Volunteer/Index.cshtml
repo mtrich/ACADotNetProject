@@ -1,6 +1,53 @@
-﻿@model Volunteer
-
-<h1>Index</h1>
-<div>
-    <p>Welcome to the site! - @Model.FirstName</p>
+﻿@model VolunteerHomeViewModel
+<div class="container padding">
+    <div class="row text-center">
+        <div class="col-12 firstName">
+            @{
+                @if (DateTime.Now.ToString("tt") == "AM")
+                {
+                    <h3>Good Morning @Model.Volunteer.FirstName!</h3>
+                }
+                else if (DateTime.Now.ToString("tt") == "PM")
+                {
+                    <h3>Good Evening @Model.Volunteer.FirstName!</h3>
+                }
+            }
+        </div>
+    </div>
 </div>
+
+    <div class="container-fluid padding radius">
+        <div class="row content">
+            <div class="col-sm-6 sidenav">
+                <h4>Joined Groups</h4>
+                <ul id="group-list">
+                    @foreach (var g in @Model.Groups)
+                    {
+                    <li class="font-weight-bold"{>@g.GroupName @Html.ActionLink("View", "GroupPage", new { controller = "Group", id = g.Id }, new { @class = "btn btn-link group-btn" })</li>
+                    }
+                </ul>
+            </div>
+
+            <div class="col-sm-6 bordered">
+                <h4><small>Tracked Job Listings</small></h4>
+                @foreach (var j in @Model.JobListings)
+                {
+                    <h2>@j.TypeOfJob</h2>
+                    <h5><span class="glyphicon glyphicon-time">@j.Organization</span>@j.Date</h5>
+                    <h5><span class="label label-danger">@j.Address, @j.City </span>@j.State</h5><br>
+                    <div class="container">
+                        <div class="row text-center description">
+                            <div class="col-12">
+                                @Html.ActionLink("Description", "Details", new { id = j.Id }, new { @class = "btn btn-primary btn-lg" })
+                            </div>
+                        </div>
+                    </div>
+                    
+                }
+
+
+
+
+            </div>
+        </div>
+    </div>

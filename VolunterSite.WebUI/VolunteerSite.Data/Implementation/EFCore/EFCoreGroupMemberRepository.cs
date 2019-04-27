@@ -29,12 +29,7 @@ namespace VolunteerSite.Data.Implementation.EFCore
                 context.Remove(groupMemberToBeDeleted);
                 context.SaveChanges();
 
-                if (GetById(groupMemberId) == null)
-                {
-                    return true;
-                }
-
-                return false;
+                return true;
             }
         }
 

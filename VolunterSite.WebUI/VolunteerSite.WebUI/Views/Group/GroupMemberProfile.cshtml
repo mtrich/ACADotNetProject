@@ -1,5 +1,8 @@
 ﻿@model Volunteer
 
+@{
+    ViewData["Title"] = "VolunteerProfile";
+}
 <div class="container">
     <div class="row">
         <div class="col">
@@ -27,9 +30,6 @@
                 </tr>
                 <tr>
                     <td>@Model.SkillsAndExperience</td>
-                </tr>
-                <tr>
-                    <td> @Html.ActionLink("Edit Profile", "EditProfile", new { id = Model.Id }, new { @class = "btn btn-primary" })</td>
                 </tr>
             </table>
         </div>
