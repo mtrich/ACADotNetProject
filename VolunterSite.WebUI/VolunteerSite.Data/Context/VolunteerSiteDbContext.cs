@@ -23,8 +23,8 @@ namespace VolunteerSite.Data.Context
         // Setting up the provider (SQL Server) and location of the Database
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {
-            // bad way of providing the connection string
-            optionBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=volunteersite;Trusted_Connection=True");
+            //providing the connection string
+            optionBuilder.UseSqlServer(Environment.GetEnvironmentVariable("SQLCONNSTR_VOLUNTEERSITE_DB"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

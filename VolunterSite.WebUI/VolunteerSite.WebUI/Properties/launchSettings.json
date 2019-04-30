@@ -1,7 +1,7 @@
-﻿{
+{
   "iisSettings": {
-    "windowsAuthentication": false, 
-    "anonymousAuthentication": true, 
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:55530",
       "sslPort": 44312
@@ -12,16 +12,17 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
+        "SQLCONNSTR_VOLUNTEERSITE_DB": "Server=tcp:ourvolunteernetwork-server.database.windows.net,1433;Initial Catalog=ourvolunteernetwork;Persist Security Info=False;User ID=mt-ctb;Password=Awesomekid1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
     "VolunteerSite.WebUI": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "https://localhost:5001;http://localhost:5000"
     }
   }
 }
